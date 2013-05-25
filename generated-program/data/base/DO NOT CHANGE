@@ -1,0 +1,11 @@
+In this directory are the default images of the authui.dll. The Logon Changer won't work right if you change(delete) these, i.e. it won't even start. Why? Just cause ;) (Because I don't want that you have trouble with a broken logon)
+The background.png is only used by the previewscreen in the editor, not for the default logon.
+The uifile contains the layout, which the program uses as base.
+You can use the previewDefault.png as an example for your logon previews.
+
+
+IF YOU CHANGED THE IMAGES AND WANT NOW TO APPLY THE DEFAULT LOGON PLEASE REDOWNLOAD THE PROGRAM.
+
+
+
+BTW.: IF YOU CHANGE ANY FILES OF THE PROGRAM IT MAY NOT WORK PROPERLY. Keep that in mind :)

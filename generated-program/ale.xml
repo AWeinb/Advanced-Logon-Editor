@@ -1,0 +1,34 @@
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>D:\ALE\ale.jar</jar>
+  <outfile>D:\ALE\AdvLogonEdit.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir></chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest>E:\Daten\1 Workspace Java\Advanced Logon Editor\generated-program\ale.manifest</manifest>
+  <icon>E:\Daten\1 Workspace Java\Advanced Logon Editor\generated-program\icon.ico</icon>
+  <jre>
+    <path></path>
+    <minVersion>1.7.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.1</fileVersion>
+    <txtFileVersion>1.01</txtFileVersion>
+    <fileDescription>Advanced Logon Editor</fileDescription>
+    <copyright>A. Weinberger</copyright>
+    <productVersion>1.0.0.1</productVersion>
+    <txtProductVersion>1.01</txtProductVersion>
+    <productName>Advanced Logon Editor</productName>
+    <companyName></companyName>
+    <internalName>ALE</internalName>
+    <originalFilename>AdvLogonEdit.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

@@ -1,0 +1,147 @@
+<project name="Advanced Logon Editor" basedir=".">
+
+
+	<!-- ################################ -->
+	<!-- SET COMPILER AND JAVA SOURCE COMPATIBILITY -->
+	<!-- ################################ -->
+	<property name="source" value="7" />
+	<property name="target" value="7" />
+	<property name="compiler" value="modern" />
+
+
+
+	<!-- ################################ -->
+	<!-- SET SOURCE, BUILD AND RELEASE DIR -->
+	<!-- ################################ -->
+	<property name="source.dir" value="src" />
+	<property name="testsource.dir" value="test" />
+	<property name="build.dir" value="generated-program/build" />
+	<property name="release.dir" value="release" />
+	<property name="lib.dir" value="lib" />
+	<property name="report.dir" value="generated-reports" />
+
+
+
+	<!-- ################################ -->
+	<!--       SET APPLICATION NAME       -->
+	<!-- ################################ -->
+	<property name="appname" value="Advanced Logon Editor" />
+	<property name="mainclass" value="ale.controller.C_Main" />
+
+
+
+	<!-- ################################ -->
+	<!--        SET CLASSPATH HERE        -->
+	<!-- ################################ -->
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}" includes="**\*.jar" />
+	</path>
+
+
+
+	<!-- ################################ -->
+	<!-- PREPARING DESTINATION DIRECTORIES -->
+	<!-- ################################ -->
+	<target name="prepare">
+		<echo message="Creating build dir: ${build.dir}" />
+		<mkdir dir="${build.dir}" />
+
+		<echo message="Creating release dir: ${release.dir}" />
+		<mkdir dir="${release.dir}" />
+
+	</target>
+
+
+
+	<!-- ################################ -->
+	<!--       CLEANING DIRECTORIES       -->
+	<!-- ################################ -->
+	<target name="clean">
+		<echo message="Deleting build dir: ${build.dir}" />
+		<delete dir="${build.dir}" />
+
+		<echo message="Deleting release dir: ${release.dir}" />
+		<delete dir="${release.dir}" />
+
+	</target>
+
+
+
+	<!-- ################################ -->
+	<!--  COMPILE ALL SOURCES (AND TESTS) -->
+	<!-- ################################ -->
+	<target name="compile" depends="prepare">
+		<echo message="Starting compile process." />
+		<antcall target="-compileSrc" />
+
+		<available file="${testsource.dir}" type="dir" property="testsource.dir.present" />
+		<antcall target="-compileTests" />
+
+	</target>
+
+
+
+	<!-- ################################ -->
+	<!--           COMPILE SRC            -->
+	<!-- ################################ -->
+	<target name="-compileSrc">
+		<echo message="Compiling ${source.dir}" />
+
+		<javac srcdir="${source.dir}" destdir="${build.dir}" source="${source}" compiler="${compiler}" debug="true" includeantruntime="false">
+			<classpath>
+				<path refid="project.classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+
+
+	<!-- ################################ -->
+	<!--           COMPILE TESTS          -->
+	<!-- ################################ -->
+	<target name="-compileTests" if="testsource.dir.present">
+		<echo message="Compiling ${testsource.dir}" />
+
+		<javac srcdir="${testsource.dir}" destdir="${build.dir}" source="${source}" compiler="${compiler}" debug="true" includeantruntime="false">
+			<classpath>
+				<path refid="project.classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+
+
+	<!-- ################################ -->
+	<!--          EXECUTE TESTS           -->
+	<!-- ################################ -->
+	<target name="executeTests" depends="compile" if="testsource.dir.present">
+		<echo message="preparing junit-reports dir: ${report.dir}\junit" />
+		<delete dir="${report.dir}\junit" />
+		<mkdir dir="${report.dir}\junit" />
+
+		<junit printsummary="on" fork="off" haltonfailure="off" failureproperty="tests.failed" filtertrace="on" showoutput="on">
+			<classpath>
+				<pathelement location="${build.dir}" />
+				<path refid="project.classpath" />
+			</classpath>
+
+			<formatter type="brief" usefile="true" />
+			<formatter type="xml" usefile="true" />
+
+			<batchtest todir="${report.dir}\junit">
+				<fileset dir="${testsource.dir}">
+					<include name="**\*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<echo message="See: ${report.dir}" />
+
+		<!--
+        <fail if="tests.failed">
+        </fail>
+        -->
+
+	</target>
+
+</project>
