@@ -2955,6 +2955,7 @@ public final class SkinPropertiesVO {
     private int loadingStatusWidth;
     private int[] loadingStatusBorderthickness = null;
     private boolean loadingStatusRinganimHidden = false;
+    private Animation loadingAnimation = UIAnimationInits.LOADINGSTATUS.getAnimation();
 
     public boolean setLoadingStatusWidth(int width) {
         boolean ret = true;
@@ -2996,6 +2997,20 @@ public final class SkinPropertiesVO {
 
     public boolean getLoadingStatusRinganimHidden() {
         return this.loadingStatusRinganimHidden;
+    }
+
+    public void setLoadingStatusAnimation(Animation animation) {
+        if (animation == null) {
+            this.loadingAnimation = UIAnimationInits.LOADINGSTATUS.getAnimation();
+
+        } else {
+            this.loadingAnimation = animation;
+        }
+        somethingChanged();
+    }
+
+    public Animation getLoadingStatusAnimation() {
+        return this.loadingAnimation;
     }
 
     // ++++++++++++++++#################++++++++++++++++
@@ -3331,7 +3346,6 @@ public final class SkinPropertiesVO {
     private Fonttype loadingFontType = UIFontInits.LOADINGSTATUS.getType();
     private Fontstyle loadingFontStyle = UIFontInits.LOADINGSTATUS.getStyle();
     private int[] loadingFontColor = UIFontInits.LOADINGSTATUS.getColor();
-    private Animation loadingAnimation = UIAnimationInits.LOADINGSTATUS.getAnimation();
 
     public void setLoadingStatusFont(String font) {
         if ((font == null) || font.equals("")) {
@@ -3401,20 +3415,6 @@ public final class SkinPropertiesVO {
 
     public int[] getLoadingStatusFontcolor() {
         return this.loadingFontColor;
-    }
-
-    public void setLoadingStatusAnimation(Animation animation) {
-        if (animation == null) {
-            this.loadingAnimation = UIAnimationInits.LOADINGSTATUS.getAnimation();
-
-        } else {
-            this.loadingAnimation = animation;
-        }
-        somethingChanged();
-    }
-
-    public Animation getLoadingStatusAnimation() {
-        return this.loadingAnimation;
     }
 
     /*
