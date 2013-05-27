@@ -306,6 +306,7 @@ final class UIFileConstants {
         FONTSHADOW("shadowintensity\\s*=\\s*\"\\d*\"", -1),
 
         LOADINGSTATUS_ANIMATION(">", 77),
+        LOADINGSTATUS_RINGANIM_VISIBILITY("width=\"20rp\"", 78),
         LOADINGSTATUS_MISC("/>", 79),
 
         SHORTMESSAGE_FONT("font=\"resstr\\(11800\\)\"", 57),

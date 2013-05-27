@@ -63,6 +63,8 @@ import ale.view.gui.util.GUIStrings;
  *                                                   <br/>
  * The <code>Main</code> class contains the control structur and is the head of the program flow.   <br/>
  * Short info: All filename params whithout suffix. Change the suffix in the constants.
+ * 
+ * See PROGRAM_PATH in Constants before testing.
  *                                                   <br/>
  *                                                   <br/>
  * Last edited: 25.04.2013 <br/>

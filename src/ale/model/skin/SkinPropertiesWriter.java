@@ -236,6 +236,8 @@ final class SkinPropertiesWriter {
             writer.append(Layout.LOADINGSTATUS_BORDERTHICKNESS + is + tmp + sep);
             tmp = properties.getLoadingStatusAnimation() == null ? "" : properties.getLoadingStatusAnimation().name();
             writer.append(Layout.LOADINGSTATUS_ANIMATION + is + tmp + sep);
+            tmp = properties.getLoadingStatusRinganimHidden() + "";
+            writer.append(Layout.LOADINGSTATUS_RINGANIMVISIBILITY + is + tmp + sep);
 
             //
 

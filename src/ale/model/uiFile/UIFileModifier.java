@@ -1218,6 +1218,14 @@ class UIFileModifier {
             }
         }
 
+        if (this.props.getLoadingStatusRinganimHidden()) {
+            tmp = UIRegex.WIDTH + "\"" + 0 + "\"";
+
+            line = ui.getLine(UILayout.LOADINGSTATUS_RINGANIM_VISIBILITY.getLine() - 1);
+            replace = line.replaceFirst(UILayout.LOADINGSTATUS_RINGANIM_VISIBILITY.getRegex(), tmp);
+            ui.setLine(replace, UILayout.LOADINGSTATUS_RINGANIM_VISIBILITY.getLine() - 1);
+        }
+
         // Fontshadow
         if (this.props.getShadowIntensity() != SkinConstants.DEFVALUE_FONTSHADOW) {
             String IntensityReplace = UIRegex.FONTSHADOW + "\"" + this.props.getShadowIntensity() + "\"";

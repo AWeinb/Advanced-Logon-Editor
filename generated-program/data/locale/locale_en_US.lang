@@ -186,6 +186,7 @@ editor-animation-vertical = Vertical
 editor-animation-slow = Slow
 editor-animation-fast = Fast
 editor-animation-original = Original
+editor-ringAnimation = Ringanimation
 editor-commandbtn-lock = lock computer
 editor-commandbtn-switch = switch user
 editor-commandbtn-logOut = log out

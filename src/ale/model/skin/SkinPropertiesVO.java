@@ -2954,6 +2954,7 @@ public final class SkinPropertiesVO {
 
     private int loadingStatusWidth;
     private int[] loadingStatusBorderthickness = null;
+    private boolean loadingStatusRinganimHidden = false;
 
     public boolean setLoadingStatusWidth(int width) {
         boolean ret = true;
@@ -2986,6 +2987,15 @@ public final class SkinPropertiesVO {
 
     public int[] getLoadingStatusBorderthickness() {
         return this.loadingStatusBorderthickness;
+    }
+
+    public void setLoadingStatusRinganimHidden(boolean hidden) {
+        this.loadingStatusRinganimHidden = hidden;
+        somethingChanged();
+    }
+
+    public boolean getLoadingStatusRinganimHidden() {
+        return this.loadingStatusRinganimHidden;
     }
 
     // ++++++++++++++++#################++++++++++++++++

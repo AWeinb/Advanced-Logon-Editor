@@ -258,6 +258,7 @@ public final class GUIStrings {
     public static final String KEY_EDITOR_ANIM_SLOW = "editor-animation-slow";
     public static final String KEY_EDITOR_ANIM_FAST = "editor-animation-fast";
     public static final String KEY_EDITOR_ANIM_NONE = "editor-animation-original";
+    public static final String KEY_EDITOR_RINGANIM = "editor-ringAnimation";
     public static final String KEY_EDITOR_CMDBTN_LOCK = "editor-commandbtn-lock";
     public static final String KEY_EDITOR_CMDBTN_SWITCH = "editor-commandbtn-switch";
     public static final String KEY_EDITOR_CMDBTN_LOGOUT = "editor-commandbtn-logOut";

@@ -1189,5 +1189,16 @@ public final class GeneralChangesMenu extends ChangesMenus {
                 skin.setLoadingStatusAnimation(Animation.RECTANGLE_V_FAST);
             }
         });
+
+        // checkbox
+        boolean b = skin.getLoadingStatusRinganimHidden();
+        GeneralChangesMenu.loadingstatusMenu.add(new CheckField(b, bg, strHideFieldTitle + " (" + strLoadingRinganim + ")", strHide) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void btnPressed(boolean selected) {
+                skin.setLoadingStatusRinganimHidden(selected);
+            }
+        });
     }
 }

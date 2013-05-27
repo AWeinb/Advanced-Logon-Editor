@@ -628,6 +628,10 @@ final class SkinPropertiesReader {
                         case LOADINGSTATUS_ANIMATION:
                             props.setLoadingStatusAnimation(getAnimation(split[1]));
                             break;
+                            
+                        case LOADINGSTATUS_RINGANIMVISIBILITY:
+                            props.setLoadingStatusRinganimHidden(Boolean.parseBoolean(split[1]));
+                            break;
 
                         //
 
