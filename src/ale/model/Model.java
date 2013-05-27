@@ -287,7 +287,7 @@ public final class Model implements IModel {
                 try { // Apply, Kill explorer to get free access to the systemfiles and copy authui and basebrd.
                     skin.applyToTempAuthui();
                 } catch (IOException
-                         | InterruptedException e) {
+                        | InterruptedException e) {
                     Main.handleUnhandableProblem(e);
                 }
                 ret = FileUtil.setWindowsExplorerActive(false);
@@ -326,7 +326,7 @@ public final class Model implements IModel {
             FileUtil.setWindowsExplorerActive(true);
             UIBackground.disableBackgrounds(); // The logon background is not saved in the dll files.
         } catch (IOException
-                 | InterruptedException e) {
+                | InterruptedException e) {
             ret = false;
         }
 
@@ -499,7 +499,7 @@ public final class Model implements IModel {
         Constants.Error ret = null;
 
         try { // Copy the unchanged systemfile in the backup directory. If the files already exist but the program has no info about it, it
-              // saves a second copy and changes the name of the existing file to a name with date.
+            // saves a second copy and changes the name of the existing file to a name with date.
 
             if (!Files.exists(Constants.SYSTEMFILE_AUTHUI_BAKPATH, LinkOption.NOFOLLOW_LINKS)) {
                 FileUtil.copyFile(this.authuiSystemfilePath, Constants.SYSTEMFILE_AUTHUI_BAKPATH, true);

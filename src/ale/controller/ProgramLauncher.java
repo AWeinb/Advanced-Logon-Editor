@@ -44,7 +44,7 @@ public final class ProgramLauncher {
      * @throws InterruptedException If the new process is interrupted.
      */
     public static boolean start(String programpath, String command, boolean printOutput, String possibleErrorString) throws IOException,
-            InterruptedException {
+    InterruptedException {
         if (command == null) {
             command = "";
         }

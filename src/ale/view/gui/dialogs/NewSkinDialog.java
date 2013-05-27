@@ -196,7 +196,7 @@ public class NewSkinDialog extends Dialog {
                             && Files.exists(
                                     Constants.PROGRAM_SKINS_PATH.resolve(NewSkinDialog.this.textFieldName.getText()
                                             + Constants.SKINFILE_SUFFIX),
-                                    LinkOption.NOFOLLOW_LINKS)) {
+                                            LinkOption.NOFOLLOW_LINKS)) {
                         String name = GUIStrings.keyToLocatedString(GUIStrings.KEY_NEWSKINDIALOG_NAME) + " ";
                         name += GUIStrings.keyToLocatedString(GUIStrings.KEY_NEWSKINDIALOG_EXISTS);
                         NewSkinDialog.this.lblNameLabel.setText(name);

@@ -139,7 +139,7 @@ public class FocusArrowListener extends KeyAdapter {
         while ((rootAncestor != null) &&
                 !(rootAncestor.isShowing() &&
                         rootAncestor.isFocusable() &&
-                rootAncestor.isEnabled()))
+                        rootAncestor.isEnabled()))
         {
             comp = rootAncestor;
             rootAncestor = comp.getFocusCycleRootAncestor();

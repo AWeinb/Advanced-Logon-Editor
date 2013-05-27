@@ -53,7 +53,7 @@ final class WindowsFileProtection {
         try {
             ret = ProgramLauncher.start(SystemInformation.getCMD(), cmdTmp, true, ERROR_IDENTIFIER);
         } catch (InterruptedException
-                 | IOException e) {
+                | IOException e) {
             ret = false;
         }
 
@@ -69,7 +69,7 @@ final class WindowsFileProtection {
         try {
             ret = ProgramLauncher.start(SystemInformation.getCMD(), cmdTmp, true, ERROR_IDENTIFIER);
         } catch (InterruptedException
-                 | IOException e) {
+                | IOException e) {
             ret = false;
         }
 

@@ -195,7 +195,7 @@ public class SaveAsDialog extends Dialog {
                             && Files.exists(Constants.PROGRAM_SKINS_PATH.resolve(SaveAsDialog.this.textFieldName.getText()),
                                     LinkOption.NOFOLLOW_LINKS)) {
                         SaveAsDialog.this.lblNameLabel
-                                .setText(SaveAsDialog.this.strNameLabel + "| " + SaveAsDialog.this.strNameExistsLabel);
+                        .setText(SaveAsDialog.this.strNameLabel + "| " + SaveAsDialog.this.strNameExistsLabel);
                         SaveAsDialog.this.textFieldName.setBackground(Color.RED);
 
                     } else {

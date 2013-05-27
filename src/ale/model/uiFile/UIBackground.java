@@ -55,7 +55,7 @@ public final class UIBackground {
         try { // Once in a time there were a bug. This bug had it that the authui was correctly applied but not the background. XXX
             ProgramLauncher.start(SystemInformation.getCMD64(), ENABLE_BG_CMD, true, null); // So, le me went and controlled the program with exceptions.
         } catch (IOException
-                 | InterruptedException e) {
+                | InterruptedException e) {
             ProgramLauncher.start(SystemInformation.getCMD(), ENABLE_BG_CMD, true, null); // Now I am in hell because I did evil.
         }
     }
@@ -70,7 +70,7 @@ public final class UIBackground {
         try { // Ok, like written above, thats not "the best"! ((((But it works)))) XXX
             ProgramLauncher.start(SystemInformation.getCMD64(), DISABLE_BG_CMD, true, null);
         } catch (IOException
-                 | InterruptedException e) {
+                | InterruptedException e) {
             ProgramLauncher.start(SystemInformation.getCMD(), DISABLE_BG_CMD, true, null);
         }
     }

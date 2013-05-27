@@ -562,33 +562,33 @@ public class DialogFooter extends JPanel {
             cancelButton = createCancelButton((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_CANCEL) ||
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != CANCEL_OPTION)) ||
                     ((defaultButton == CANCEL_OPTION) &&
-                    (escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT)));
+                            (escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT)));
         }
         if ((options == DONT_SAVE_OPTION) || (options == SAVE_DONT_SAVE_CANCEL_OPTION) || (options == DONT_SAVE_SAVE_OPTION)) {
             dontSaveButton = createDontSaveButton(
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != DONT_SAVE_OPTION)) ||
-                            ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == DONT_SAVE_OPTION)));
+                    ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == DONT_SAVE_OPTION)));
         }
         if ((options == NO_OPTION) || (options == YES_NO_OPTION) || (options == YES_NO_CANCEL_OPTION)) {
             noButton = createNoButton(
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != NO_OPTION)) ||
-                            ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == NO_OPTION)));
+                    ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == NO_OPTION)));
         }
         if ((options == OK_OPTION) ||
                 (options == OK_CANCEL_OPTION)) {
             okButton = createOKButton(
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != OK_OPTION)) ||
-                            ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == OK_OPTION)));
+                    ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == OK_OPTION)));
         }
         if ((options == SAVE_OPTION) || (options == SAVE_DONT_SAVE_CANCEL_OPTION) || (options == DONT_SAVE_SAVE_OPTION)) {
             saveButton = createSaveButton(
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != SAVE_OPTION)) ||
-                            ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == SAVE_OPTION)));
+                    ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == SAVE_OPTION)));
         }
         if ((options == YES_OPTION) || (options == YES_NO_OPTION) || (options == YES_NO_CANCEL_OPTION)) {
             yesButton = createYesButton(
                     ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_NONDEFAULT) && (defaultButton != YES_OPTION)) ||
-                            ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == YES_OPTION)));
+                    ((escapeKeyBehavior == ESCAPE_KEY_TRIGGERS_DEFAULT) && (defaultButton == YES_OPTION)));
         }
 
         if (options == CANCEL_OPTION) {
@@ -915,10 +915,10 @@ public class DialogFooter extends JPanel {
         for (int a = 0; a < unsafeButtons.length; a++) {
             JComponent comp = reverseButtonOrder ?
                     unsafeButtons[unsafeButtons.length - 1 - a] :
-                    unsafeButtons[a];
-            add(comp, c);
-            c.gridx++;
-            c.insets.left = this.buttonGap;
+                        unsafeButtons[a];
+                    add(comp, c);
+                    c.gridx++;
+                    c.insets.left = this.buttonGap;
         }
         if (unsafeButtons.length > 0) {
             c.insets.left = this.unsafeButtonGap;
@@ -938,11 +938,11 @@ public class DialogFooter extends JPanel {
         for (int a = 0; a < safeButtons.length; a++) {
             JComponent comp = reverseButtonOrder ?
                     safeButtons[safeButtons.length - 1 - a] :
-                    safeButtons[a];
+                        safeButtons[a];
 
-            add(comp, c);
-            c.gridx++;
-            c.insets.left = this.buttonGap;
+                    add(comp, c);
+                    c.gridx++;
+                    c.insets.left = this.buttonGap;
         }
 
         normalizeButtons(unsafeButtons);

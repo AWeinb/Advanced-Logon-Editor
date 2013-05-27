@@ -67,9 +67,9 @@ class ColorPickerDialog extends JDialog {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException
-                 | InstantiationException
-                 | IllegalAccessException
-                 | UnsupportedLookAndFeelException e) {
+                | InstantiationException
+                | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
         }
         setModal(true);
         setResizable(false);

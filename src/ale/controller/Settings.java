@@ -195,7 +195,7 @@ public final class Settings {
                 initialized = true;
 
             } catch (IOException
-                     | NullPointerException e) {
+                    | NullPointerException e) {
                 Main.showProblemMessage(e.getMessage());
                 initNew();
             }

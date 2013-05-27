@@ -273,7 +273,7 @@ public final class QuickChooser extends JFrame implements WindowListener {
 
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
-                    btnRefreshListButton.setEnabled(false);
+                    QuickChooser.this.btnRefreshListButton.setEnabled(false);
                     updateList();
 
                     new Thread() {
@@ -287,8 +287,9 @@ public final class QuickChooser extends JFrame implements WindowListener {
                             EventQueue.invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (btnRefreshListButton != null)
-                                        btnRefreshListButton.setEnabled(true);
+                                    if (QuickChooser.this.btnRefreshListButton != null) {
+                                        QuickChooser.this.btnRefreshListButton.setEnabled(true);
+                                    }
                                 }
                             });
                         }

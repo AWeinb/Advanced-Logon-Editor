@@ -100,9 +100,9 @@ public class Main {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         } catch (ClassNotFoundException
-                 | InstantiationException
-                 | IllegalAccessException
-                 | UnsupportedLookAndFeelException e) {
+                | InstantiationException
+                | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
             LOGGER.warn("Exception while trying to set the L&F!", e);
         }
 
@@ -438,7 +438,7 @@ public class Main {
                 ret = true;
 
             } catch (IOException
-                     | URISyntaxException e) {
+                    | URISyntaxException e) {
                 LOGGER.error(e);
             }
         }
@@ -597,7 +597,7 @@ public class Main {
         PropertyResourceBundle localeRes = null;
         try (FileInputStream fis = new FileInputStream(Constants.PROGRAM_LOCALE_PATH.resolve(
                 Constants.PROGRAM_I18N + "_" + currentLocale.getLanguage() + "_" + currentLocale.getCountry()
-                        + Constants.PROGRAM_I18N_SUFFIX).toFile())) {
+                + Constants.PROGRAM_I18N_SUFFIX).toFile())) {
             localeRes = new PropertyResourceBundle(fis);
             fis.close();
 

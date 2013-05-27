@@ -45,16 +45,16 @@ public class PlafPaintUtils {
 
     /** Four shades of white, each with increasing opacity. */
     final static Color[] whites = new Color[] {
-            new Color(255, 255, 255, 50),
-            new Color(255, 255, 255, 100),
-            new Color(255, 255, 255, 150)
+        new Color(255, 255, 255, 50),
+        new Color(255, 255, 255, 100),
+        new Color(255, 255, 255, 150)
     };
 
     /** Four shades of black, each with increasing opacity. */
     final static Color[] blacks = new Color[] {
-            new Color(0, 0, 0, 50),
-            new Color(0, 0, 0, 100),
-            new Color(0, 0, 0, 150)
+        new Color(0, 0, 0, 50),
+        new Color(0, 0, 0, 100),
+        new Color(0, 0, 0, 150)
     };
 
     /**
@@ -192,14 +192,14 @@ public class PlafPaintUtils {
                 f = f / ((array.length - 1));
                 boolean hit = false;
                 findMatch:
-                for (int b = 1; b < positions.length; b++) {
-                    if ((f >= positions[b - 1]) && (f < positions[b])) {
-                        float p = (f - positions[b - 1]) / (positions[b] - positions[b - 1]);
-                        array[a] = tween(colors[b - 1], colors[b], p).getRGB();
-                        hit = true;
-                        break findMatch;
+                    for (int b = 1; b < positions.length; b++) {
+                        if ((f >= positions[b - 1]) && (f < positions[b])) {
+                            float p = (f - positions[b - 1]) / (positions[b] - positions[b - 1]);
+                            array[a] = tween(colors[b - 1], colors[b], p).getRGB();
+                            hit = true;
+                            break findMatch;
+                        }
                     }
-                }
                 if (!hit) {
                     array[a] = colors[colors.length - 1].getRGB();
                 }

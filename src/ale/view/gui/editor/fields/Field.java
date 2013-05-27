@@ -20,13 +20,13 @@ abstract class Field extends JPanel {
     protected static String strHide = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_HIDE);
 
     protected static String[] strPosTooltip = { GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_TOPLEFT),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_TOP),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_TOPRIGHT),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_LEFT), GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_CENTER),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_RIGHT),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOMLEFT),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOM),
-            GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOMRIGHT) };
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_TOP),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_TOPRIGHT),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_LEFT), GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_CENTER),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_RIGHT),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOMLEFT),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOM),
+        GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_POS_BOTTOMRIGHT) };
     protected static String strWidthTooltip = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_WIDTH);
     protected static String strHeightTooltip = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_HEIGHT);
     protected static String strBorderTooltip = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_BORDERTOOLTIP);

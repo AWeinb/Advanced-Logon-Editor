@@ -349,7 +349,7 @@ public final class FileUtil {
             try {
                 ret = WindowsExplorer.start();
             } catch (IOException
-                     | InterruptedException e) {
+                    | InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -358,7 +358,7 @@ public final class FileUtil {
             try {
                 ret = WindowsExplorer.shutdown();
             } catch (IOException
-                     | InterruptedException e) {
+                    | InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }

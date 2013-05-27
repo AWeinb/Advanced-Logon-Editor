@@ -87,7 +87,7 @@ public abstract class ChangesMenus {
     protected static String strCommandBtn_taskman = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_CMDBTN_TASKMAN);
 
     protected static String strLoadingRinganim = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_RINGANIM);
-    
+
     protected ChangesMenus() {
     }
 

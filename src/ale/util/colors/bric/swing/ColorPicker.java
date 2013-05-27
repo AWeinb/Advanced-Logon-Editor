@@ -134,7 +134,7 @@ public class ColorPicker extends JPanel {
         d = new ColorPickerDialog(originalColor, includeOpacity);
         d.setTitle(title == null ?
                 strings.getString("ColorPickerDialogTitle") :
-                title);
+                    title);
         d.pack();
         d.setVisible(true);
         return d.getColor();

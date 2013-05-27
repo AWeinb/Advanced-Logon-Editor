@@ -315,26 +315,26 @@ public final class UsertileChangesMenu extends ChangesMenus {
         // checkbox
         b = skin.getPWAreaPositionOnRightOfTexts();
         UsertileChangesMenu.usermenuLayoutMenu
-                .add(new CheckField(b, bg, strUsertilePWRightOfTextsFieldTitle, strUsertilePWRightOfTextLabel) {
-                    private static final long serialVersionUID = 1L;
+        .add(new CheckField(b, bg, strUsertilePWRightOfTextsFieldTitle, strUsertilePWRightOfTextLabel) {
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public void btnPressed(boolean selected) {
-                        skin.setPWAreaPositionOnRightOfTexts(selected);
-                    }
-                });
+            @Override
+            public void btnPressed(boolean selected) {
+                skin.setPWAreaPositionOnRightOfTexts(selected);
+            }
+        });
 
         // checkbox
         b = skin.getStatusOnRightSide();
         UsertileChangesMenu.usermenuLayoutMenu
-                .add(new CheckField(b, bg, strUsertileStatusOnRightFieldTitle, strUsertileStatusOnRightLabel) {
-                    private static final long serialVersionUID = 1L;
+        .add(new CheckField(b, bg, strUsertileStatusOnRightFieldTitle, strUsertileStatusOnRightLabel) {
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public void btnPressed(boolean selected) {
-                        skin.setStatusPositionOnRight(selected);
-                    }
-                });
+            @Override
+            public void btnPressed(boolean selected) {
+                skin.setStatusPositionOnRight(selected);
+            }
+        });
 
         // position
         Position pos = skin.getUsertilePosition();

@@ -357,55 +357,55 @@ public final class UserlistChangesMenu extends ChangesMenus {
         // padding
         final int[] padding = skin.getUserlistPadding();
         UserlistChangesMenu.userlistLayoutMenu
-                .add(new PaddingField(padding, bg, strPaddingFieldTitle + "(" + strUserlistPaddingHint + ")") {
-                    private static final long serialVersionUID = 1L;
+        .add(new PaddingField(padding, bg, strPaddingFieldTitle + "(" + strUserlistPaddingHint + ")") {
+            private static final long serialVersionUID = 1L;
 
-                    private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
+            private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
-                    @Override
-                    public void topFieldOnKeyReleased(String input) {
-                        controlAndSet(input, 1);
+            @Override
+            public void topFieldOnKeyReleased(String input) {
+                controlAndSet(input, 1);
+            }
+
+            @Override
+            public void rightFieldOnKeyReleased(String input) {
+                controlAndSet(input, 2);
+            }
+
+            @Override
+            public void leftFieldOnKeyReleased(String input) {
+                controlAndSet(input, 0);
+            }
+
+            @Override
+            public void bottomFieldOnKeyReleased(String input) {
+                controlAndSet(input, 3);
+            }
+
+            private void controlAndSet(String s, int index) {
+                int i = FAILURE;
+                if (s != null) {
+                    try {
+                        i = Integer.parseInt(s);
+                    } catch (NumberFormatException e) {
+                        i = FAILURE;
                     }
+                }
 
-                    @Override
-                    public void rightFieldOnKeyReleased(String input) {
-                        controlAndSet(input, 2);
-                    }
+                if (i == FAILURE) {
+                    skin.setUserlistPadding(null);
+                } else {
+                    this.tmp[index] = i;
+                    skin.setUserlistPadding(this.tmp);
+                }
+            }
 
-                    @Override
-                    public void leftFieldOnKeyReleased(String input) {
-                        controlAndSet(input, 0);
-                    }
-
-                    @Override
-                    public void bottomFieldOnKeyReleased(String input) {
-                        controlAndSet(input, 3);
-                    }
-
-                    private void controlAndSet(String s, int index) {
-                        int i = FAILURE;
-                        if (s != null) {
-                            try {
-                                i = Integer.parseInt(s);
-                            } catch (NumberFormatException e) {
-                                i = FAILURE;
-                            }
-                        }
-
-                        if (i == FAILURE) {
-                            skin.setUserlistPadding(null);
-                        } else {
-                            this.tmp[index] = i;
-                            skin.setUserlistPadding(this.tmp);
-                        }
-                    }
-
-                    @Override
-                    public int[] reset() {
-                        skin.setUserlistPadding(null);
-                        this.tmp = skin.getUserlistPadding();
-                        return this.tmp;
-                    }
-                });
+            @Override
+            public int[] reset() {
+                skin.setUserlistPadding(null);
+                this.tmp = skin.getUserlistPadding();
+                return this.tmp;
+            }
+        });
     }
 }

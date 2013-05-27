@@ -127,7 +127,7 @@ public abstract class FontField extends Field {
         this.sizeInputField = new JTextField(NUMBERLENGTH + 1);
         this.sizeInputField.setText(initialSize + "");
         this.sizeInputField
-                .setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0), this.sizeInputField.getBorder()));
+        .setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0), this.sizeInputField.getBorder()));
         this.sizeInputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {

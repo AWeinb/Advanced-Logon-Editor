@@ -70,7 +70,7 @@ public class Shutdown extends PreviewElement {
         w = this.skin.getShutdownmenuButtonWidth();
         h = this.skin.getShutdownmenuButtonHeight() > this.skin.getShutdownButtonHeight() ? this.skin.getShutdownmenuButtonHeight()
                 : this.skin
-                        .getShutdownButtonHeight();
+                .getShutdownButtonHeight();
 
         x = bounds.width - w - 30;
         y = bounds.height - h - 30;

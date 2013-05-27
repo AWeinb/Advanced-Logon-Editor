@@ -290,7 +290,7 @@ final class SkinPropertiesReader {
                             props.setWindowInnerAnimation(getAnimation(split[1]));
                             break;
 
-                        //
+                            //
 
                         case ACCBTN_HEIGHT:
                             props.setAccButtonHeight(parseInt(split[1]));
@@ -304,7 +304,7 @@ final class SkinPropertiesReader {
                             props.setAccButtonPosition(getPosition(split[1]));
                             break;
 
-                        //
+                            //
 
                         case COMBTN_MINHEIGHT:
                             props.setCommandButtonMinHeight(parseInt(split[1]));
@@ -350,7 +350,7 @@ final class SkinPropertiesReader {
                             props.setCommandButtonVisibility(CommandButton.TASKMANAGER, Boolean.parseBoolean(split[1]));
                             break;
 
-                        //
+                            //
 
                         case STDBTN_HEIGHT:
                             props.setStandardButtonMinHeight(parseInt(split[1]));
@@ -376,7 +376,7 @@ final class SkinPropertiesReader {
                             props.setStandardButtonPadding(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case PWBTN_HEIGHT:
                             props.setPasswordButtonHeight(parseInt(split[1]));
@@ -394,7 +394,7 @@ final class SkinPropertiesReader {
                             props.setPasswordButtonMargin(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case SHDFRAME_LAYOUT:
                             props.setShutdownframeBorderlayout(Boolean.parseBoolean(split[1]));
@@ -404,7 +404,7 @@ final class SkinPropertiesReader {
                             props.setShutdownframePosition(getPosition(split[1]));
                             break;
 
-                        //
+                            //
 
                         case SHDBTN_HEIGHT:
                             props.setShutdownButtonHeight(parseInt(split[1]));
@@ -430,7 +430,7 @@ final class SkinPropertiesReader {
                             props.setShutdownButtonContent(split[1]);
                             break;
 
-                        //
+                            //
 
                         case SHDMENU_HEIGHT:
                             props.setShutdownmenuButtonHeight(parseInt(split[1]));
@@ -456,7 +456,7 @@ final class SkinPropertiesReader {
                             props.setShutdownmenuButtonContent(split[1]);
                             break;
 
-                        //
+                            //
 
                         case ACCSHD_COMBINED:
                             props.setCombinedShdAcc(Boolean.parseBoolean(split[1]));
@@ -466,7 +466,7 @@ final class SkinPropertiesReader {
                             props.setCombinedShdAcc_Position(getPosition(split[1]));
                             break;
 
-                        //
+                            //
 
                         case LOCALEBTN_VISIBILITY:
                             props.setLocaleButtonVisibility(Boolean.parseBoolean(split[1]));
@@ -480,7 +480,7 @@ final class SkinPropertiesReader {
                             props.setLocaleButtonPadding(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case SECURITYOPTIONS_POSITION:
                             props.setSecurityMenuPosition(getPosition(split[1]));
@@ -490,7 +490,7 @@ final class SkinPropertiesReader {
                             props.setSecurityMenuPadding(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case OPTIONSBAR_HEIGHT:
                             props.setOptionsbarHeight(parseInt(split[1]));
@@ -500,7 +500,7 @@ final class SkinPropertiesReader {
                             props.setWrapAccInNewElement(Boolean.parseBoolean(split[1]));
                             break;
 
-                        //
+                            //
 
                         case USERLIST_HEIGHT:
                             props.setUserlistHeight(parseInt(split[1]));
@@ -518,7 +518,7 @@ final class SkinPropertiesReader {
                             props.setUserlistPadding(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
                         case USERLIST_IMAGE_HEIGHT:
                             props.setUserlistImageHeight(parseInt(split[1]));
                             break;
@@ -539,7 +539,7 @@ final class SkinPropertiesReader {
                             props.setUserlistImageFrameWidth(parseInt(split[1]));
                             break;
 
-                        //
+                            //
 
                         case USERTILE_LAYOUT:
                             props.setUsertileLayout(Boolean.parseBoolean(split[1]));
@@ -561,7 +561,7 @@ final class SkinPropertiesReader {
                             props.setUsertileImagePosition(getPosition(split[1]));
                             break;
 
-                        //
+                            //
 
                         case USERTILE_IMAGE_HEIGHT:
                             props.setUsertileImageHeight(parseInt(split[1]));
@@ -583,7 +583,7 @@ final class SkinPropertiesReader {
                             props.setUsertileImageFrameWidth(parseInt(split[1]));
                             break;
 
-                        //
+                            //
 
                         case PWFIELD_HEIGHT:
                             props.setPWfieldHeight(parseInt(split[1]));
@@ -601,7 +601,7 @@ final class SkinPropertiesReader {
                             props.setPWfieldMargin(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case PWAREA_UPSHIFT:
                             props.setPasswordfieldUpshift(parseInt(split[1]));
@@ -615,7 +615,7 @@ final class SkinPropertiesReader {
                             props.setPasswordfieldRightshift(parseInt(split[1]));
                             break;
 
-                        //
+                            //
 
                         case LOADINGSTATUS_WIDTH:
                             props.setLoadingStatusWidth(parseInt(split[1]));
@@ -628,18 +628,18 @@ final class SkinPropertiesReader {
                         case LOADINGSTATUS_ANIMATION:
                             props.setLoadingStatusAnimation(getAnimation(split[1]));
                             break;
-                            
+
                         case LOADINGSTATUS_RINGANIMVISIBILITY:
                             props.setLoadingStatusRinganimHidden(Boolean.parseBoolean(split[1]));
                             break;
 
-                        //
+                            //
 
                         case FONTSHADOW:
                             props.setShadowIntensity(parseInt(split[1]));
                             break;
 
-                        // Fonts --->
+                            // Fonts --->
 
                         case SHD_FONT:
                             props.setShutdownFont(split[1]);
@@ -661,7 +661,7 @@ final class SkinPropertiesReader {
                             props.setShutdownFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case SHDMENU_FONT:
                             props.setShutdownMenuFont(split[1]);
@@ -683,7 +683,7 @@ final class SkinPropertiesReader {
                             props.setShutdownMenuFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case PWFIELD_FONT:
                             props.setPWFieldFont(split[1]);
@@ -705,7 +705,7 @@ final class SkinPropertiesReader {
                             props.setPWFieldFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case RESETPW_FONT:
                             props.setPWResetFont(split[1]);
@@ -727,7 +727,7 @@ final class SkinPropertiesReader {
                             props.setPWResetFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case LOADINGSTATUS_FONT:
                             props.setLoadingStatusFont(split[1]);
@@ -749,7 +749,7 @@ final class SkinPropertiesReader {
                             props.setLoadingStatusFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case SHORTMESSAGE_FONT:
                             props.setShortMessageFont(split[1]);
@@ -771,7 +771,7 @@ final class SkinPropertiesReader {
                             props.setShortMessageFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case COMBTN_FONT:
                             props.setCommandButtonFont(split[1]);
@@ -793,7 +793,7 @@ final class SkinPropertiesReader {
                             props.setCommandButtonFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case STDBTN_FONT:
                             props.setBtn_Std_Font(split[1]);
@@ -815,7 +815,7 @@ final class SkinPropertiesReader {
                             props.setBtn_Std_Fontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case STATUSTEXT_FONT:
                             props.setStatustextFont(split[1]);
@@ -837,7 +837,7 @@ final class SkinPropertiesReader {
                             props.setStatustextFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case STATUSTEXTZOOMED_FONT:
                             props.setStatustextZoomedFont(split[1]);
@@ -859,7 +859,7 @@ final class SkinPropertiesReader {
                             props.setStatustextZoomedFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case NAMETEXT_FONT:
                             props.setNametextFont(split[1]);
@@ -881,7 +881,7 @@ final class SkinPropertiesReader {
                             props.setNametextFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         case NAMETEXTZOOMED_FONT:
                             props.setNametextZoomedFont(split[1]);
@@ -903,7 +903,7 @@ final class SkinPropertiesReader {
                             props.setNametextZoomedFontcolor(stringToArray_4(split[1]));
                             break;
 
-                        //
+                            //
 
                         default:
                             throw new IOException();

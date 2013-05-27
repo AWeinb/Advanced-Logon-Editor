@@ -80,8 +80,8 @@ public class JVM {
     /** If on a Mac: whether Quartz is the rendering pipeline. */
     public static final boolean usingQuartz = isMac
             && (((javaVersion > 0) && (javaVersion < 1.4f)) ||
-            ((System.getProperty("apple.awt.graphics.UseQuartz") != null) && System.getProperty("apple.awt.graphics.UseQuartz").toString()
-                    .equals("true")));
+                    ((System.getProperty("apple.awt.graphics.UseQuartz") != null) && System.getProperty("apple.awt.graphics.UseQuartz").toString()
+                            .equals("true")));
 
     /**
      * This converts the system property "java.version" to a float value. This drops rightmost digits until a legitimate

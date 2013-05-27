@@ -73,7 +73,7 @@ public final class SkinPropertiesVO {
                     FileUtil.copyFile(img, this.imageDir.resolve(resnumber + Constants.DEFAULT_INPUTIMAGE_TYPE), false);
                 }
             } catch (IOException
-                     | InterruptedException e) {
+                    | InterruptedException e) {
                 Main.handleUnhandableProblem(e);
                 ret = null;
             }
