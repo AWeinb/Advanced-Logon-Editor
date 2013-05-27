@@ -447,6 +447,30 @@ public final class QuickChooser extends JFrame implements WindowListener {
         miscSkinoptionsPanel.add(this.btnNewButton);
     }
 
+    @Override
+    public void dispose() {
+        this.listModel = null;
+        this.previewList = null;
+        this.lblPreviewLabel = null;
+        this.lblBaseInfoLabel = null;
+        this.btnApplyButton = null;
+        this.btnEditButton = null;
+        this.btnDeleteButton = null;
+        this.list = null;
+        this.listPanel = null;
+        this.btnRefreshListButton = null;
+        this.previewPanel = null;
+        this.lblWarningLabel = null;
+        this.btnNewButton = null;
+
+        if (this.menubar != null) {
+            this.menubar.shutdown();
+        }
+        this.menubar = null;
+
+        super.dispose();
+    }
+
     /*
      * Windowlistener
      * 

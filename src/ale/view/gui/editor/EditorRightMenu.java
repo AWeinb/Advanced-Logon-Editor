@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.GUIConstants;
 import ale.view.gui.GUIConstants.RightMenu;
 import ale.view.gui.editor.fields.MenuHint;
@@ -44,12 +45,33 @@ final class EditorRightMenu extends JPanel {
     private JPanel rightPanelSubBtm;
     private JLabel rightPanelInfo;
 
-    private String comboboxHintAddition;
+    private GeneralChangesMenu generalChangesMenu;
+    private ButtonChangesMenu buttonChangesMenu;
+    private UserlistChangesMenu userlistChangesMenu;
+    private UsertileChangesMenu usertileChangesMenu;
+    private FontChangesMenu fontChangesMenu;
+
     private String strComboboxHint = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_COMBOBOXHINT);
 
-    public EditorRightMenu(Editor editor, Color background) {
+    public EditorRightMenu(Editor editor, SkinPropertiesVO skinProps, Color background) {
         this.editor = editor;
         this.bg = background;
+
+        this.generalChangesMenu = new GeneralChangesMenu(this.bg, skinProps);
+        this.buttonChangesMenu = new ButtonChangesMenu(this.bg, skinProps);
+        this.userlistChangesMenu = new UserlistChangesMenu(this.bg, skinProps);
+        this.usertileChangesMenu = new UsertileChangesMenu(this.bg, skinProps);
+        this.fontChangesMenu = new FontChangesMenu(this.bg, skinProps);
+
+        while (!this.generalChangesMenu.isInitialized() && !this.buttonChangesMenu.isInitialized()
+                && !this.userlistChangesMenu.isInitialized()
+                && !this.usertileChangesMenu.isInitialized() && !this.fontChangesMenu.isInitialized()) {
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         setBackground(background);
         setLayout(new BorderLayout());
@@ -118,127 +140,127 @@ final class EditorRightMenu extends JPanel {
             switch (menu) {
                 case GEN_CHANGES_MENU:
                     if (id == 1) { // this.strArGenChangeOptions[1]
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getBackgroundMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getBackgroundMenu());
 
                     } else if (id == 2) {// this.strArGenChangeOptions[2] ...
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getBrandingMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getBrandingMenu());
 
                     } else if (id == 3) {
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getWindowMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getWindowMenu());
 
                     } else if (id == 4) {
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getOptionBarMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getOptionBarMenu());
 
                     } else if (id == 5) {
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getSecOptMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getSecOptMenu());
 
                     } else if (id == 6) {
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getSliderMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getSliderMenu());
 
                     } else if (id == 7) {
-                        this.rightPanelSubBtm.add(GeneralChangesMenu.getLoadingstatusMenu());
+                        this.rightPanelSubBtm.add(this.generalChangesMenu.getLoadingstatusMenu());
                     }
                     break;
 
                 case BTN_CHANGES_MENU:
                     if (id == 1) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getAccessibilityBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getAccessibilityBtnMenu());
 
                     } else if (id == 2) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getCommandBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getCommandBtnMenu());
 
                     } else if (id == 3) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getStandardBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getStandardBtnMenu());
 
                     } else if (id == 4) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getPasswordBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getPasswordBtnMenu());
 
                     } else if (id == 5) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getShutdownFrameMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getShutdownFrameMenu());
 
                     } else if (id == 6) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getShutdownBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getShutdownBtnMenu());
 
                     } else if (id == 7) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getShutdownmenuMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getShutdownmenuMenu());
 
                     } else if (id == 8) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getLocaleBtnMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getLocaleBtnMenu());
 
                     } else if (id == 9) {
-                        this.rightPanelSubBtm.add(ButtonChangesMenu.getMiscMenu());
+                        this.rightPanelSubBtm.add(this.buttonChangesMenu.getMiscMenu());
                     }
                     break;
 
                 case USERLIST_CHANGES_MENU:
                     if (id == 1) {
-                        this.rightPanelSubBtm.add(UserlistChangesMenu.getUserlistImageMenu());
+                        this.rightPanelSubBtm.add(this.userlistChangesMenu.getUserlistImageMenu());
 
                     } else if (id == 2) {
-                        this.rightPanelSubBtm.add(UserlistChangesMenu.getUserlistImageframeMenu());
+                        this.rightPanelSubBtm.add(this.userlistChangesMenu.getUserlistImageframeMenu());
 
                     } else if (id == 3) {
-                        this.rightPanelSubBtm.add(UserlistChangesMenu.getUserlistLayoutMenu());
+                        this.rightPanelSubBtm.add(this.userlistChangesMenu.getUserlistLayoutMenu());
                     }
                     break;
 
                 case USERTILE_CHANGES_MENU:
                     if (id == 1) {
-                        this.rightPanelSubBtm.add(UsertileChangesMenu.getUsertileImageMenu());
+                        this.rightPanelSubBtm.add(this.usertileChangesMenu.getUsertileImageMenu());
 
                     } else if (id == 2) {
-                        this.rightPanelSubBtm.add(UsertileChangesMenu.getUsertileImageframeMenu());
+                        this.rightPanelSubBtm.add(this.usertileChangesMenu.getUsertileImageframeMenu());
 
                     } else if (id == 3) {
-                        this.rightPanelSubBtm.add(UsertileChangesMenu.getUsertileLayoutMenu());
+                        this.rightPanelSubBtm.add(this.usertileChangesMenu.getUsertileLayoutMenu());
 
                     } else if (id == 4) {
-                        this.rightPanelSubBtm.add(UsertileChangesMenu.getUsertilePWFieldMenu());
+                        this.rightPanelSubBtm.add(this.usertileChangesMenu.getUsertilePWFieldMenu());
                     }
                     break;
 
                 case FONT_MENU:
                     if (id == 1) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getFontshadowChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getFontshadowChangesMenu());
 
                     } else if (id == 2) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getAllFontsChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getAllFontsChangesMenu());
 
                     } else if (id == 3) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getShutdownChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getShutdownChangesMenu());
 
                     } else if (id == 4) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getShutdownMenuChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getShutdownMenuChangesMenu());
 
                     } else if (id == 5) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getPWFieldBtnChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getPWFieldBtnChangesMenu());
 
                     } else if (id == 6) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getPWResetBtnChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getPWResetBtnChangesMenu());
 
                     } else if (id == 7) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getLoadingstatusChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getLoadingstatusChangesMenu());
 
                     } else if (id == 8) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getShortMsgChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getShortMsgChangesMenu());
 
                     } else if (id == 9) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getCommandBtnChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getCommandBtnChangesMenu());
 
                     } else if (id == 10) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getStandardBtnChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getStandardBtnChangesMenu());
 
                     } else if (id == 11) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getStatustextInListChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getStatustextInListChangesMenu());
 
                     } else if (id == 12) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getStatustextInTileChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getStatustextInTileChangesMenu());
 
                     } else if (id == 13) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getNametextInListChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getNametextInListChangesMenu());
 
                     } else if (id == 14) {
-                        this.rightPanelSubBtm.add(FontChangesMenu.getNametextInTileChangesMenu());
+                        this.rightPanelSubBtm.add(this.fontChangesMenu.getNametextInTileChangesMenu());
                     }
                     break;
 
@@ -252,16 +274,17 @@ final class EditorRightMenu extends JPanel {
     }
 
     private String getContentInfo(String[] cbEntries) {
+        String comboboxHintAddition = "";
         if (cbEntries != null) {
             String sep = System.getProperty("line.separator");
-            this.comboboxHintAddition = sep + sep + GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_COMBOBOXHINTCONTENT) + sep;
+            comboboxHintAddition = sep + sep + GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_COMBOBOXHINTCONTENT) + sep;
 
             for (int i = 1; i < cbEntries.length; i++) {
-                this.comboboxHintAddition += cbEntries[i] + sep;
+                comboboxHintAddition += cbEntries[i] + sep;
             }
         }
 
-        return this.comboboxHintAddition;
+        return comboboxHintAddition;
     }
 
     private void create() {
@@ -357,5 +380,27 @@ final class EditorRightMenu extends JPanel {
         });
 
         this.rightPanelSubBtm.add(MenuHint.getInstance(this.bg, GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_MENUHINT)));
+    }
+
+    public void shutdown() {
+        this.editor = null;
+        this.bg = null;
+
+        this.generalChangesMenu.shutdown();
+        this.buttonChangesMenu.shutdown();
+        this.userlistChangesMenu.shutdown();
+        this.usertileChangesMenu.shutdown();
+        this.fontChangesMenu.shutdown();
+
+        this.generalChangesMenu = null;
+        this.buttonChangesMenu = null;
+        this.userlistChangesMenu = null;
+        this.usertileChangesMenu = null;
+        this.fontChangesMenu = null;
+
+        this.rightHideBtn = null;
+        this.rightPanelComboBox = null;
+        this.rightPanelSubBtm = null;
+        this.rightPanelInfo = null;
     }
 }

@@ -12,13 +12,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.GUIConstants;
 import ale.view.gui.util.GUIStrings;
 
 public abstract class ChangesMenus {
-
-    protected static SkinPropertiesVO skin;
 
     protected static String strImgFieldTitle = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_FIELDTITLE_IMAGE);
     protected static String strPosFieldTitle = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_FIELDTITLE_POSITION);
@@ -89,25 +86,6 @@ public abstract class ChangesMenus {
     protected static String strLoadingRinganim = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_RINGANIM);
 
     protected ChangesMenus() {
-    }
-
-    public static void initialize(Color bg, SkinPropertiesVO skin) {
-        ChangesMenus.skin = skin;
-
-        ButtonChangesMenu.initialize(bg);
-        FontChangesMenu.initialize(bg);
-        GeneralChangesMenu.initialize(bg);
-        UserlistChangesMenu.initialize(bg);
-        UsertileChangesMenu.initialize(bg);
-
-        while (!ButtonChangesMenu.isInitialized() && !FontChangesMenu.isInitialized() && !GeneralChangesMenu.isInitialized()
-                && !UserlistChangesMenu.isInitialized() && !UsertileChangesMenu.isInitialized()) {
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     protected static JTabbedPane createTabbedPane(Color bg, String title, JPanel... jPanels) {

@@ -23,13 +23,13 @@ import ale.controller.Main;
 import ale.model.skin.SkinConstants;
 import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.GUIConstants;
-import ale.view.gui.editor.previewPanel.elements.AccBtn;
-import ale.view.gui.editor.previewPanel.elements.Branding;
-import ale.view.gui.editor.previewPanel.elements.LocaleBtn;
-import ale.view.gui.editor.previewPanel.elements.SecurityMenu;
-import ale.view.gui.editor.previewPanel.elements.Shutdown;
-import ale.view.gui.editor.previewPanel.elements.Userlist;
-import ale.view.gui.editor.previewPanel.elements.Usertile;
+import ale.view.gui.editor.previewPanel.elements.AccBtnPreview;
+import ale.view.gui.editor.previewPanel.elements.BrandingPreview;
+import ale.view.gui.editor.previewPanel.elements.LocaleBtnPreview;
+import ale.view.gui.editor.previewPanel.elements.SecurityMenuPreview;
+import ale.view.gui.editor.previewPanel.elements.ShutdownPreview;
+import ale.view.gui.editor.previewPanel.elements.UserlistPreview;
+import ale.view.gui.editor.previewPanel.elements.UsertilePreview;
 import ale.view.gui.util.GUIStrings;
 
 /**
@@ -47,13 +47,13 @@ import ale.view.gui.util.GUIStrings;
 public class PreviewPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private AccBtn btnAcc;
-    private LocaleBtn btnLocale;
-    private Shutdown shutdown;
-    private Branding brd;
-    private SecurityMenu sec;
-    private Userlist userlist;
-    private Usertile usertile;
+    private AccBtnPreview btnAccPreview;
+    private LocaleBtnPreview btnLocalePreview;
+    private ShutdownPreview shutdownPreview;
+    private BrandingPreview brdPreview;
+    private SecurityMenuPreview secPreview;
+    private UserlistPreview userlistPreview;
+    private UsertilePreview usertilePreview;
 
     private SkinPropertiesVO skin;
 
@@ -76,13 +76,13 @@ public class PreviewPanel extends JPanel {
         }
         this.skin = skinproperties;
 
-        this.btnAcc = new AccBtn(skinproperties, this);
-        this.btnLocale = new LocaleBtn(skinproperties, this);
-        this.shutdown = new Shutdown(skinproperties, this);
-        this.brd = new Branding(skinproperties, this);
-        this.sec = new SecurityMenu(skinproperties, this);
-        this.userlist = new Userlist(skinproperties, this);
-        this.usertile = new Usertile(skinproperties, this);
+        this.btnAccPreview = new AccBtnPreview(skinproperties, this);
+        this.btnLocalePreview = new LocaleBtnPreview(skinproperties, this);
+        this.shutdownPreview = new ShutdownPreview(skinproperties, this);
+        this.brdPreview = new BrandingPreview(skinproperties, this);
+        this.secPreview = new SecurityMenuPreview(skinproperties, this);
+        this.userlistPreview = new UserlistPreview(skinproperties, this);
+        this.usertilePreview = new UsertilePreview(skinproperties, this);
     }
 
     /**
@@ -150,7 +150,7 @@ public class PreviewPanel extends JPanel {
      *
      * 
      */
-    public void stopRepaintTimer() {
+    public void shutdown() {
         if (this.timer != null) {
             this.timer.stop();
             this.readThread.interrupt();
@@ -160,6 +160,26 @@ public class PreviewPanel extends JPanel {
                 e.printStackTrace();
             }
         }
+
+        this.timer = null;
+        this.backgroundImage = null;
+        this.skin = null;
+        this.btnAccPreview.shutdown();
+        this.btnLocalePreview.shutdown();
+        this.shutdownPreview.shutdown();
+        this.brdPreview.shutdown();
+        this.secPreview.shutdown();
+        this.userlistPreview.shutdown();
+        this.usertilePreview.shutdown();
+        this.btnAccPreview = null;
+        this.btnLocalePreview = null;
+        this.shutdownPreview = null;
+        this.brdPreview = null;
+        this.secPreview = null;
+        this.userlistPreview = null;
+        this.usertilePreview = null;
+
+        Runtime.getRuntime().gc();
     }
 
     @Override
@@ -182,16 +202,16 @@ public class PreviewPanel extends JPanel {
         }
 
         {
-            this.brd.paintComponents(g);
-            this.btnAcc.paintComponents(g);
-            this.shutdown.paintComponents(g);
-            this.btnLocale.paintComponents(g);
+            this.brdPreview.paintComponents(g);
+            this.btnAccPreview.paintComponents(g);
+            this.shutdownPreview.paintComponents(g);
+            this.btnLocalePreview.paintComponents(g);
             if (this.showUserlist) {
-                this.userlist.paintComponents(g);
+                this.userlistPreview.paintComponents(g);
             } else if (this.showUsertile) {
-                this.usertile.paintComponents(g);
+                this.usertilePreview.paintComponents(g);
             } else {
-                this.sec.paintComponents(g);
+                this.secPreview.paintComponents(g);
             }
         }
 

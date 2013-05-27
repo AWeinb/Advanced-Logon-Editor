@@ -128,6 +128,12 @@ public final class Skin implements ISkin {
         this.props = new SkinPropertiesVO(skinPath.resolve(Constants.SKIN_IMGFOLDER), preview);
     }
 
+    public void shutdown() {
+        this.props.shutdown();
+        this.props = null;
+        this.uifile = null;
+    }
+
     @Override
     public void load(Path skinFile) throws IOException {
         if (!FileUtil.control(skinFile)) {

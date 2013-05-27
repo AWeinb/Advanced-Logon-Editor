@@ -144,4 +144,16 @@ final class QuickChooserMenuBar extends JMenuBar {
         });
         this.helpMenu.add(this.aboutMenuItem);
     }
+
+    public void shutdown() {
+        this.fileMenu = null;
+        this.fileExit = null;
+        this.settings = null;
+        this.settingsItem = null;
+        this.helpMenu = null;
+        this.docsMenuItem = null;
+        this.webMenuItem = null;
+        this.backupMenuItem = null;
+        this.aboutMenuItem = null;
+    }
 }

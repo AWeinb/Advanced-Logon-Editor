@@ -32,7 +32,7 @@ import ale.model.skin.SkinPropertiesVO;
  * Last edited: 17.05.2013 <br/>
  * ------------------------------------------------- <br/>
  */
-public class AccBtn extends PreviewElement {
+public class AccBtnPreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
@@ -44,7 +44,7 @@ public class AccBtn extends PreviewElement {
      * @param skinproperties the skin layout
      * @param parent parent component
      */
-    public AccBtn(SkinPropertiesVO skinproperties, JPanel parent) {
+    public AccBtnPreview(SkinPropertiesVO skinproperties, JPanel parent) {
         if (skinproperties == null) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
@@ -52,6 +52,13 @@ public class AccBtn extends PreviewElement {
 
         this.skin = skinproperties;
         this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.parent = null;
+        this.ground = null;
+        this.symbol = null;
     }
 
     @Override

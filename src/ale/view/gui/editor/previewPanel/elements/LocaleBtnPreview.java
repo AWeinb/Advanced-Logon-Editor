@@ -20,23 +20,26 @@ import ale.Constants;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinPropertiesVO;
 
-public class LocaleBtn extends PreviewElement {
+public class LocaleBtnPreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
-    // private JPanel parent;
-
     private Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
     private BufferedImage ground;
 
-    public LocaleBtn(SkinPropertiesVO skin, JPanel parent) {
+    public LocaleBtnPreview(SkinPropertiesVO skin, JPanel parent) {
         if (skin == null) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
         }
 
         this.skin = skin;
-        // this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.font = null;
+        this.ground = null;
     }
 
     @Override
@@ -53,6 +56,7 @@ public class LocaleBtn extends PreviewElement {
                             .replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
                     this.ground = ImageIO.read(new File(p));
                 } catch (IOException e) {
+                    ;
                 }
             }
 

@@ -24,7 +24,6 @@ import javax.swing.text.StyledDocument;
 import ale.controller.Main;
 import ale.model.skin.Skin;
 import ale.view.gui.GUIConstants;
-import ale.view.gui.editor.Editor;
 import ale.view.gui.util.GUIStrings;
 
 /**
@@ -46,11 +45,10 @@ public class QuitConfirmDialog extends Dialog {
 
     /**
      * @param skin skin, in order to save it
-     * @param editor to dispose it if asked
      * @param openNewSkin if the user switches from one skin to a new one.
      * @param openChooser if the user wants to open the chooser.
      */
-    public QuitConfirmDialog(final Skin skin, final Editor editor, final boolean openNewSkin, final boolean openChooser) {
+    public QuitConfirmDialog(final Skin skin, final boolean openNewSkin, final boolean openChooser) {
         if (skin.isSkinChanged()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -67,18 +65,18 @@ public class QuitConfirmDialog extends Dialog {
                     QuitConfirmDialog.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     QuitConfirmDialog.this.getContentPane().add(QuitConfirmDialog.this.basePanel, BorderLayout.CENTER);
 
-                    create(skin, editor, openNewSkin, openChooser);
+                    create(skin, openNewSkin, openChooser);
 
                     QuitConfirmDialog.this.setVisible(true);
                 }
             });
 
         } else {
-            handleInput(editor, skin, openNewSkin, openChooser, false);
+            handleInput(skin, openNewSkin, openChooser, false);
         }
     }
 
-    private void create(final Skin skin, final Editor editor, final boolean openNewSkin, final boolean openChooser) {
+    private void create(final Skin skin, final boolean openNewSkin, final boolean openChooser) {
         JPanel textPanel = new JPanel();
         textPanel.setBackground(GUIConstants.DEFAULT_BACKGROUND);
         String tmp = GUIStrings.keyToLocatedString(GUIStrings.KEY_QUITCONFIRMDIALOG_TITLE);
@@ -119,7 +117,7 @@ public class QuitConfirmDialog extends Dialog {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     saveButton.setEnabled(false);
-                    handleInput(editor, skin, openNewSkin, openChooser, true);
+                    handleInput(skin, openNewSkin, openChooser, true);
                 }
             });
             buttonPanel.add(saveButton);
@@ -133,7 +131,7 @@ public class QuitConfirmDialog extends Dialog {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
                     noSaveButton.setEnabled(false);
-                    handleInput(editor, skin, openNewSkin, openChooser, false);
+                    handleInput(skin, openNewSkin, openChooser, false);
                 }
             });
             buttonPanel.add(noSaveButton);
@@ -152,11 +150,8 @@ public class QuitConfirmDialog extends Dialog {
         }
     }
 
-    private void handleInput(Editor editor, Skin skin, boolean openNewSkin, boolean openChooser, boolean saveSkin) {
+    private void handleInput(Skin skin, boolean openNewSkin, boolean openChooser, boolean saveSkin) {
         dispose();
-        if (editor != null) {
-            editor.dispose();
-        }
 
         if (saveSkin) {
             Main.save(skin);

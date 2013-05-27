@@ -19,7 +19,7 @@ import ale.Constants;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinPropertiesVO;
 
-public class Shutdown extends PreviewElement {
+public class ShutdownPreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
@@ -29,7 +29,7 @@ public class Shutdown extends PreviewElement {
     private BufferedImage btnSym;
     private BufferedImage menuSym;
 
-    public Shutdown(SkinPropertiesVO skin, JPanel parent) {
+    public ShutdownPreview(SkinPropertiesVO skin, JPanel parent) {
         if (skin == null) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
@@ -37,6 +37,15 @@ public class Shutdown extends PreviewElement {
 
         this.skin = skin;
         this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.parent = null;
+        this.btn = null;
+        this.menu = null;
+        this.btnSym = null;
+        this.menuSym = null;
     }
 
     @Override

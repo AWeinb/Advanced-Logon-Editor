@@ -27,7 +27,7 @@ public final class Constants {
     }
 
     /** Basepath of the program. Needed to test the program in the IDE. */
-    public static final Path PROGRAM_PATH = Paths.get("generated-program"); //generated-program
+    public static final Path PROGRAM_PATH = Paths.get(""); //generated-program
 
     /*
      * ########################################################################

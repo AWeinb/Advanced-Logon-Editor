@@ -268,8 +268,11 @@ public class Main {
      * 
      */
     public static void showQuickChooser() {
+        if (editor != null) {
+            editor.dispose();
+            editor = null;
+        }
         chooser = new QuickChooser();
-        editor = null;
     }
 
     /**
@@ -392,7 +395,7 @@ public class Main {
      */
     @SuppressWarnings("unused")
     public static void showQuitConfirmationDialog(Skin skin, boolean openNewSkin, boolean openChooser) {
-        new QuitConfirmDialog(skin, editor, openChooser, openChooser);
+        new QuitConfirmDialog(skin, openChooser, openChooser);
     }
 
     /**

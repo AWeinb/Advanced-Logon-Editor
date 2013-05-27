@@ -23,7 +23,6 @@ import ale.controller.Settings;
 import ale.model.skin.Skin;
 import ale.view.gui.GUIConstants;
 import ale.view.gui.GUIConstants.RightMenu;
-import ale.view.gui.editor.menus.ChangesMenus;
 import ale.view.gui.editor.previewPanel.PreviewPanel;
 import ale.view.gui.util.GUIStrings;
 
@@ -66,7 +65,6 @@ public class Editor extends JFrame implements WindowListener {
         this.skin = skin;
 
         setUpStringArrays();
-        initMenus();
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -142,10 +140,6 @@ public class Editor extends JFrame implements WindowListener {
         this.strArFontOptions[14] = GUIStrings.keyToLocatedString(GUIStrings.KEY_EDITOR_FONTCHANGESOPT_14);
     }
 
-    private void initMenus() {
-        ChangesMenus.initialize(GUIConstants.DEFAULT_BACKGROUND, Editor.this.skin.getProperties());
-    }
-
     private void create() {
         Runnable _runOne = new Runnable() {
 
@@ -166,7 +160,7 @@ public class Editor extends JFrame implements WindowListener {
 
             @Override
             public void run() {
-                Editor.this.rightMenu = new EditorRightMenu(Editor.this, GUIConstants.DEFAULT_BACKGROUND);
+                Editor.this.rightMenu = new EditorRightMenu(Editor.this, Editor.this.skin.getProperties(), GUIConstants.DEFAULT_BACKGROUND);
             }
         };
         Runnable _runFour = new Runnable() {
@@ -343,7 +337,16 @@ public class Editor extends JFrame implements WindowListener {
 
     @Override
     public void dispose() {
-        this.previewPanel.stopRepaintTimer();
+        this.btmMenu = null;
+        this.leftMenu = null;
+
+        this.rightMenu.shutdown();
+        this.rightMenu = null;
+
+        this.skin.shutdown();
+        this.skin = null;
+
+        this.previewPanel.shutdown();
         super.dispose();
     }
 

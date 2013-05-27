@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import ale.controller.Main;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinConstants.Position;
+import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.editor.fields.BorderField;
 import ale.view.gui.editor.fields.CheckField;
 import ale.view.gui.editor.fields.ImageField;
@@ -28,25 +29,29 @@ import ale.view.gui.util.VerticalLayout;
 
 public final class UsertileChangesMenu extends ChangesMenus {
 
-    private static boolean init_1;
-    private static boolean init_2;
+    private boolean init_1;
+    private boolean init_2;
 
-    private static JPanel usermenuImageMenu;
-    private static JPanel usermenuImageframeMenu;
-    private static JPanel usermenuLayoutMenu;
-    private static JPanel usermenuPWFieldMenu;
+    private JPanel usermenuImageMenu;
+    private JPanel usermenuImageframeMenu;
+    private JPanel usermenuLayoutMenu;
+    private JPanel usermenuPWFieldMenu;
 
-    private UsertileChangesMenu() {
+    private SkinPropertiesVO skin;
+
+    public UsertileChangesMenu(Color bg, SkinPropertiesVO skin) {
+        this.skin = skin;
+        initialize(bg);
     }
 
-    public static void initialize(final Color bg) {
+    private void initialize(final Color bg) {
         Runnable _runOne = new Runnable() {
 
             @Override
             public void run() {
                 initUsermenuImageMenu(bg);
                 initUsermenuImageframeMenu(bg);
-                init_1 = true;
+                UsertileChangesMenu.this.init_1 = true;
             }
         };
 
@@ -56,50 +61,57 @@ public final class UsertileChangesMenu extends ChangesMenus {
             public void run() {
                 initUsermenuLayoutMenu(bg);
                 initUsermenuPWFieldMenu(bg);
-                init_2 = true;
+                UsertileChangesMenu.this.init_2 = true;
             }
         };
         Main.executeThreads(_runOne, _runTwo);
     }
 
-    protected static boolean isInitialized() {
-        return init_1 & init_2;
+    public boolean isInitialized() {
+        return this.init_1 & this.init_2;
     }
 
-    public static JPanel getUsertileImageMenu() {
-        if (!UsertileChangesMenu.isInitialized()) {
+    public void shutdown() {
+        this.usermenuImageMenu = null;
+        this.usermenuImageframeMenu = null;
+        this.usermenuLayoutMenu = null;
+        this.usermenuPWFieldMenu = null;
+    }
+
+    public JPanel getUsertileImageMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UsertileChangesMenu.usermenuImageMenu;
+        return this.usermenuImageMenu;
     }
 
-    public static JPanel getUsertileImageframeMenu() {
-        if (!UsertileChangesMenu.isInitialized()) {
+    public JPanel getUsertileImageframeMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UsertileChangesMenu.usermenuImageframeMenu;
+        return this.usermenuImageframeMenu;
     }
 
-    public static JPanel getUsertileLayoutMenu() {
-        if (!UsertileChangesMenu.isInitialized()) {
+    public JPanel getUsertileLayoutMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UsertileChangesMenu.usermenuLayoutMenu;
+        return this.usermenuLayoutMenu;
     }
 
-    public static JPanel getUsertilePWFieldMenu() {
-        if (!UsertileChangesMenu.isInitialized()) {
+    public JPanel getUsertilePWFieldMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UsertileChangesMenu.usermenuPWFieldMenu;
+        return this.usermenuPWFieldMenu;
     }
 
     /*
@@ -109,42 +121,42 @@ public final class UsertileChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initUsermenuImageMenu(Color bg) {
-        UsertileChangesMenu.usermenuImageMenu = new JPanel();
-        UsertileChangesMenu.usermenuImageMenu.setBackground(bg);
-        UsertileChangesMenu.usermenuImageMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUsermenuImageMenu(Color bg) {
+        this.usermenuImageMenu = new JPanel();
+        this.usermenuImageMenu.setBackground(bg);
+        this.usermenuImageMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // size
-        int[] size = new int[] { skin.getUsertileImageWidth(), skin.getUsertileImageHeight() };
-        UsertileChangesMenu.usermenuImageMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getUsertileImageWidth(), this.skin.getUsertileImageHeight() };
+        this.usermenuImageMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setUsertileImageWidth(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setUsertileImageWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setUsertileImageHeight(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setUsertileImageHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setUsertileImageWidth(-1);
-                skin.setUsertileImageHeight(-1);
-                update(skin.getUsertileImageWidth(), skin.getUsertileImageHeight());
+                UsertileChangesMenu.this.skin.setUsertileImageWidth(-1);
+                UsertileChangesMenu.this.skin.setUsertileImageHeight(-1);
+                update(UsertileChangesMenu.this.skin.getUsertileImageWidth(), UsertileChangesMenu.this.skin.getUsertileImageHeight());
             }
         });
 
         // padding
-        final int[] padding = skin.getUsertileImagePadding();
-        UsertileChangesMenu.usermenuImageMenu.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] padding = this.skin.getUsertileImagePadding();
+        this.usermenuImageMenu.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -179,26 +191,26 @@ public final class UsertileChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setUsertileImagePadding(null);
+                    UsertileChangesMenu.this.skin.setUsertileImagePadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setUsertileImagePadding(this.tmp);
+                    UsertileChangesMenu.this.skin.setUsertileImagePadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setUsertileImagePadding(null);
-                this.tmp = skin.getUsertileImagePadding();
+                UsertileChangesMenu.this.skin.setUsertileImagePadding(null);
+                this.tmp = UsertileChangesMenu.this.skin.getUsertileImagePadding();
                 return this.tmp;
             }
         });
 
         // position
-        Position pos = skin.getUsertileImagePosition();
+        Position pos = this.skin.getUsertileImagePosition();
         boolean[] active = { false, false, false, true, true, true, false, false, false };
-        UsertileChangesMenu.usermenuImageMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        this.usermenuImageMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -214,17 +226,17 @@ public final class UsertileChangesMenu extends ChangesMenus {
 
             @Override
             public void centerrightOnPressed() {
-                skin.setUsertileImagePosition(Position.RIGHT);
+                UsertileChangesMenu.this.skin.setUsertileImagePosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setUsertileImagePosition(Position.LEFT);
+                UsertileChangesMenu.this.skin.setUsertileImagePosition(Position.LEFT);
             }
 
             @Override
             public void centerOnPressed() {
-                skin.setUsertileImagePosition(Position.CENTER);
+                UsertileChangesMenu.this.skin.setUsertileImagePosition(Position.CENTER);
             }
 
             @Override
@@ -242,53 +254,54 @@ public final class UsertileChangesMenu extends ChangesMenus {
 
     }
 
-    private static void initUsermenuImageframeMenu(Color bg) {
-        UsertileChangesMenu.usermenuImageframeMenu = new JPanel();
-        UsertileChangesMenu.usermenuImageframeMenu.setBackground(bg);
-        UsertileChangesMenu.usermenuImageframeMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUsermenuImageframeMenu(Color bg) {
+        this.usermenuImageframeMenu = new JPanel();
+        this.usermenuImageframeMenu.setBackground(bg);
+        this.usermenuImageframeMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // imagePath
-        Path initialValue = skin.getImgPath_UsertileImage();
-        UsertileChangesMenu.usermenuImageframeMenu.add(new ImageField(initialValue, bg, strImgFieldTitle + "(" + strUserimageOverlay + ")",
+        Path initialValue = this.skin.getImgPath_UsertileImage();
+        this.usermenuImageframeMenu.add(new ImageField(initialValue, bg, strImgFieldTitle + "(" + strUserimageOverlay + ")",
                 true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onFileChosen(File file) {
                 if (file != null) {
-                    skin.setImgPath_UsertileImage(file.toPath());
-                    updatePathField(skin.getImgPath_UsertileImage(), false);
+                    UsertileChangesMenu.this.skin.setImgPath_UsertileImage(file.toPath());
+                    updatePathField(UsertileChangesMenu.this.skin.getImgPath_UsertileImage(), false);
                 } else {
-                    skin.setImgPath_UsertileImage(null);
-                    updatePathField(skin.getImgPath_UsertileImage(), true);
+                    UsertileChangesMenu.this.skin.setImgPath_UsertileImage(null);
+                    updatePathField(UsertileChangesMenu.this.skin.getImgPath_UsertileImage(), true);
                 }
             }
         });
 
         // size
-        int[] size = new int[] { skin.getUsertileImageFrameWidth(), skin.getUsertileImageFrameHeight() };
-        UsertileChangesMenu.usermenuImageframeMenu.add(new SizeField(size, 3, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getUsertileImageFrameWidth(), this.skin.getUsertileImageFrameHeight() };
+        this.usermenuImageframeMenu.add(new SizeField(size, 3, bg, strSizeFieldTitle, true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setUsertileImageFrameWidth(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setUsertileImageFrameWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setUsertileImageFrameHeight(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setUsertileImageFrameHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setUsertileImageFrameWidth(-1);
-                skin.setUsertileImageFrameHeight(-1);
-                update(skin.getUsertileImageFrameWidth(), skin.getUsertileImageFrameHeight());
+                UsertileChangesMenu.this.skin.setUsertileImageFrameWidth(-1);
+                UsertileChangesMenu.this.skin.setUsertileImageFrameHeight(-1);
+                update(UsertileChangesMenu.this.skin.getUsertileImageFrameWidth(),
+                        UsertileChangesMenu.this.skin.getUsertileImageFrameHeight());
             }
         });
     }
@@ -296,152 +309,152 @@ public final class UsertileChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initUsermenuLayoutMenu(Color bg) {
-        UsertileChangesMenu.usermenuLayoutMenu = new JPanel();
-        UsertileChangesMenu.usermenuLayoutMenu.setBackground(bg);
-        UsertileChangesMenu.usermenuLayoutMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUsermenuLayoutMenu(Color bg) {
+        this.usermenuLayoutMenu = new JPanel();
+        this.usermenuLayoutMenu.setBackground(bg);
+        this.usermenuLayoutMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // checkbox
-        boolean b = skin.getUsertileLayoutIsHorizontal();
-        UsertileChangesMenu.usermenuLayoutMenu.add(new CheckField(b, bg, strUsertileHorizontalFieldTitle, strUsertileHorizontalLabel) {
-            private static final long serialVersionUID = 1L;
+        boolean b = this.skin.getUsertileLayoutIsHorizontal();
+        this.usermenuLayoutMenu.add(new CheckField(b, bg, strUsertileHorizontalFieldTitle, strUsertileHorizontalLabel) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setUsertileLayout(selected);
+                UsertileChangesMenu.this.skin.setUsertileLayout(selected);
             }
         });
 
         // checkbox
-        b = skin.getPWAreaPositionOnRightOfTexts();
-        UsertileChangesMenu.usermenuLayoutMenu
+        b = this.skin.getPWAreaPositionOnRightOfTexts();
+        this.usermenuLayoutMenu
         .add(new CheckField(b, bg, strUsertilePWRightOfTextsFieldTitle, strUsertilePWRightOfTextLabel) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setPWAreaPositionOnRightOfTexts(selected);
+                UsertileChangesMenu.this.skin.setPWAreaPositionOnRightOfTexts(selected);
             }
         });
 
         // checkbox
-        b = skin.getStatusOnRightSide();
-        UsertileChangesMenu.usermenuLayoutMenu
+        b = this.skin.getStatusOnRightSide();
+        this.usermenuLayoutMenu
         .add(new CheckField(b, bg, strUsertileStatusOnRightFieldTitle, strUsertileStatusOnRightLabel) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setStatusPositionOnRight(selected);
+                UsertileChangesMenu.this.skin.setStatusPositionOnRight(selected);
             }
         });
 
         // position
-        Position pos = skin.getUsertilePosition();
+        Position pos = this.skin.getUsertilePosition();
         boolean[] active = { true, true, true, true, true, true, true, true, true };
-        UsertileChangesMenu.usermenuLayoutMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        this.usermenuLayoutMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
-                skin.setUsertilePosition(Position.TOPRIGHT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.TOPRIGHT);
             }
 
             @Override
             public void topleftOnPressed() {
-                skin.setUsertilePosition(Position.TOPLEFT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.TOPLEFT);
             }
 
             @Override
             public void topOnPressed() {
-                skin.setUsertilePosition(Position.TOP);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setUsertilePosition(Position.RIGHT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setUsertilePosition(Position.LEFT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.LEFT);
             }
 
             @Override
             public void centerOnPressed() {
-                skin.setUsertilePosition(Position.CENTER);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.CENTER);
             }
 
             @Override
             public void bottomrightOnPressed() {
-                skin.setUsertilePosition(Position.BOTTOMRIGHT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.BOTTOMRIGHT);
             }
 
             @Override
             public void bottomleftOnPressed() {
-                skin.setUsertilePosition(Position.BOTTOMLEFT);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.BOTTOMLEFT);
             }
 
             @Override
             public void bottomOnPressed() {
-                skin.setUsertilePosition(Position.BOTTOM);
+                UsertileChangesMenu.this.skin.setUsertilePosition(Position.BOTTOM);
             }
         });
     }
 
-    private static void initUsermenuPWFieldMenu(Color bg) {
-        UsertileChangesMenu.usermenuPWFieldMenu = new JPanel();
-        UsertileChangesMenu.usermenuPWFieldMenu.setBackground(bg);
-        UsertileChangesMenu.usermenuPWFieldMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUsermenuPWFieldMenu(Color bg) {
+        this.usermenuPWFieldMenu = new JPanel();
+        this.usermenuPWFieldMenu.setBackground(bg);
+        this.usermenuPWFieldMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         {
-            Path initialValue = skin.getImgPath_PWField(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_PWField(Imagetype.DEFAULT);
             ImageField defaultImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWField(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.DEFAULT), false);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_PWField(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.DEFAULT), true);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(null, Imagetype.DEFAULT);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_PWField(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_PWField(Imagetype.MOUSEFOCUS);
             ImageField focusImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWField(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_PWField(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.MOUSEFOCUS), false);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(file.toPath(), Imagetype.MOUSEFOCUS);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_PWField(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_PWField(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.MOUSEFOCUS), true);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(null, Imagetype.MOUSEFOCUS);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(null, Imagetype.KEYFOCUS);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_PWField(Imagetype.DISABLED);
+            initialValue = this.skin.getImgPath_PWField(Imagetype.DISABLED);
             ImageField pressedImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWField(file.toPath(), Imagetype.DISABLED);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.DISABLED), false);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(file.toPath(), Imagetype.DISABLED);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.DISABLED), false);
                     } else {
-                        skin.setImgPath_PWField(null, Imagetype.DISABLED);
-                        updatePathField(skin.getImgPath_PWField(Imagetype.DISABLED), true);
+                        UsertileChangesMenu.this.skin.setImgPath_PWField(null, Imagetype.DISABLED);
+                        updatePathField(UsertileChangesMenu.this.skin.getImgPath_PWField(Imagetype.DISABLED), true);
                     }
                 }
             };
@@ -451,13 +464,13 @@ public final class UsertileChangesMenu extends ChangesMenus {
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImageSelected);
 
-            UsertileChangesMenu.usermenuPWFieldMenu.add(pane);
+            this.usermenuPWFieldMenu.add(pane);
         }
 
         // border
-        final int[] borderthickness = skin.getPWfieldBorderthickness();
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] borderthickness = this.skin.getPWfieldBorderthickness();
+        this.usermenuPWFieldMenu.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -492,52 +505,52 @@ public final class UsertileChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setPWfieldBorderthickness(null);
+                    UsertileChangesMenu.this.skin.setPWfieldBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setPWfieldBorderthickness(this.tmp);
+                    UsertileChangesMenu.this.skin.setPWfieldBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setPWfieldBorderthickness(null);
-                this.tmp = skin.getPWfieldBorderthickness();
+                UsertileChangesMenu.this.skin.setPWfieldBorderthickness(null);
+                this.tmp = UsertileChangesMenu.this.skin.getPWfieldBorderthickness();
                 return this.tmp;
             }
         });
 
         // size
-        int[] size = new int[] { skin.getPWfieldWidth(), skin.getPWfieldHeight() };
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getPWfieldWidth(), this.skin.getPWfieldHeight() };
+        this.usermenuPWFieldMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setPWfieldWidth(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setPWfieldWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setPWfieldHeight(parseInt(input))) {
+                if (!UsertileChangesMenu.this.skin.setPWfieldHeight(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setPWfieldWidth(-1);
-                skin.setPWfieldHeight(-1);
-                update(skin.getPWfieldWidth(), skin.getPWfieldHeight());
+                UsertileChangesMenu.this.skin.setPWfieldWidth(-1);
+                UsertileChangesMenu.this.skin.setPWfieldHeight(-1);
+                update(UsertileChangesMenu.this.skin.getPWfieldWidth(), UsertileChangesMenu.this.skin.getPWfieldHeight());
             }
         });
 
         // padding
-        final int[] margin = skin.getPWfieldMargin();
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] margin = this.skin.getPWfieldMargin();
+        this.usermenuPWFieldMenu.add(new MarginField(margin, bg, strMarginFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -572,28 +585,28 @@ public final class UsertileChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setPWfieldMargin(null);
+                    UsertileChangesMenu.this.skin.setPWfieldMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setPWfieldMargin(this.tmp);
+                    UsertileChangesMenu.this.skin.setPWfieldMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setPWfieldMargin(null);
-                this.tmp = skin.getPWfieldMargin();
+                UsertileChangesMenu.this.skin.setPWfieldMargin(null);
+                this.tmp = UsertileChangesMenu.this.skin.getPWfieldMargin();
                 return this.tmp;
             }
         });
 
-        int tmp = skin.getPasswordfieldUpshift();
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaUpShift, strPWAreaShiftamount, false) {
-            private static final long serialVersionUID = 1L;
+        int tmp = this.skin.getPasswordfieldUpshift();
+        this.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaUpShift, strPWAreaShiftamount, false) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onKeyReleased(String input) {
-                skin.setPasswordfieldUpshift(parseInt(input));
+                UsertileChangesMenu.this.skin.setPasswordfieldUpshift(parseInt(input));
             }
 
             @Override
@@ -602,13 +615,13 @@ public final class UsertileChangesMenu extends ChangesMenus {
             }
         });
 
-        tmp = skin.getPasswordfieldDownshift();
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaDownShift, strPWAreaShiftamount, false) {
-            private static final long serialVersionUID = 1L;
+        tmp = this.skin.getPasswordfieldDownshift();
+        this.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaDownShift, strPWAreaShiftamount, false) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onKeyReleased(String input) {
-                skin.setPasswordfieldDownshift(parseInt(input));
+                UsertileChangesMenu.this.skin.setPasswordfieldDownshift(parseInt(input));
             }
 
             @Override
@@ -617,13 +630,13 @@ public final class UsertileChangesMenu extends ChangesMenus {
             }
         });
 
-        tmp = skin.getPasswordfieldRightshift();
-        UsertileChangesMenu.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaRightShift, strPWAreaShiftamount, false) {
-            private static final long serialVersionUID = 1L;
+        tmp = this.skin.getPasswordfieldRightshift();
+        this.usermenuPWFieldMenu.add(new Numberfield(tmp, 3, bg, strPWAreaRightShift, strPWAreaShiftamount, false) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onKeyReleased(String input) {
-                skin.setPasswordfieldRightshift(parseInt(input));
+                UsertileChangesMenu.this.skin.setPasswordfieldRightshift(parseInt(input));
             }
 
             @Override

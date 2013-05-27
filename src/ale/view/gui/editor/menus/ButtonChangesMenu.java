@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import ale.controller.Main;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinConstants.Position;
+import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.editor.fields.BorderField;
 import ale.view.gui.editor.fields.CheckField;
 import ale.view.gui.editor.fields.ContentField;
@@ -28,24 +29,28 @@ import ale.view.gui.util.VerticalLayout;
 
 public final class ButtonChangesMenu extends ChangesMenus {
 
-    private static boolean init_1;
-    private static boolean init_2;
-    private static boolean init_3;
+    private boolean init_1;
+    private boolean init_2;
+    private boolean init_3;
 
-    private static JPanel accBtn;
-    private static JPanel comBtn;
-    private static JPanel stdBtn;
-    private static JPanel pwdBtn;
-    private static JPanel shutdFrame;
-    private static JPanel shutdBtn;
-    private static JPanel shutdMenu;
-    private static JPanel localeBtn;
-    private static JPanel misc;
+    private JPanel accBtn;
+    private JPanel comBtn;
+    private JPanel stdBtn;
+    private JPanel pwdBtn;
+    private JPanel shutdFrame;
+    private JPanel shutdBtn;
+    private JPanel shutdMenu;
+    private JPanel localeBtn;
+    private JPanel misc;
 
-    private ButtonChangesMenu() {
+    private SkinPropertiesVO skin;
+
+    public ButtonChangesMenu(Color bg, SkinPropertiesVO skin) {
+        this.skin = skin;
+        initialize(bg);
     }
 
-    public static void initialize(final Color bg) {
+    private void initialize(final Color bg) {
         Runnable _runOne = new Runnable() {
 
             @Override
@@ -53,7 +58,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 initAccBtn(bg);
                 initComBtn(bg);
                 initStdBtn(bg);
-                init_1 = true;
+                ButtonChangesMenu.this.init_1 = true;
             }
         };
 
@@ -64,7 +69,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 initPwdBtn(bg);
                 initShutdFrame(bg);
                 initShutdBtn(bg);
-                init_2 = true;
+                ButtonChangesMenu.this.init_2 = true;
             }
         };
 
@@ -75,95 +80,107 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 initShutdMenu(bg);
                 initlocaleBtn(bg);
                 initMisc(bg);
-                init_3 = true;
+                ButtonChangesMenu.this.init_3 = true;
             }
         };
         Main.executeThreads(_runOne, _runTwo, _runThree);
     }
 
-    protected static boolean isInitialized() {
-        return init_1 & init_2 & init_3;
+    public boolean isInitialized() {
+        return this.init_1 & this.init_2 & this.init_3;
     }
 
-    public static JPanel getAccessibilityBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public void shutdown() {
+        this.accBtn = null;
+        this.comBtn = null;
+        this.stdBtn = null;
+        this.pwdBtn = null;
+        this.shutdFrame = null;
+        this.shutdBtn = null;
+        this.shutdMenu = null;
+        this.localeBtn = null;
+        this.misc = null;
+    }
+
+    public JPanel getAccessibilityBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.accBtn;
+        return this.accBtn;
     }
 
-    public static JPanel getCommandBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getCommandBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.comBtn;
+        return this.comBtn;
     }
 
-    public static JPanel getStandardBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getStandardBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.stdBtn;
+        return this.stdBtn;
     }
 
-    public static JPanel getPasswordBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getPasswordBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.pwdBtn;
+        return this.pwdBtn;
     }
 
-    public static JPanel getShutdownFrameMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getShutdownFrameMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.shutdFrame;
+        return this.shutdFrame;
     }
 
-    public static JPanel getShutdownBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getShutdownBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.shutdBtn;
+        return this.shutdBtn;
     }
 
-    public static JPanel getShutdownmenuMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getShutdownmenuMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.shutdMenu;
+        return this.shutdMenu;
     }
 
-    public static JPanel getLocaleBtnMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getLocaleBtnMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.localeBtn;
+        return this.localeBtn;
     }
 
-    public static JPanel getMiscMenu() {
-        if (!ButtonChangesMenu.isInitialized()) {
+    public JPanel getMiscMenu() {
+        if (!isInitialized()) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return ButtonChangesMenu.misc;
+        return this.misc;
     }
 
     /*
@@ -173,60 +190,60 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initAccBtn(Color bg) {
-        ButtonChangesMenu.accBtn = new JPanel();
-        ButtonChangesMenu.accBtn.setBackground(bg);
-        ButtonChangesMenu.accBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initAccBtn(Color bg) {
+        this.accBtn = new JPanel();
+        this.accBtn.setBackground(bg);
+        this.accBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
-        Path initialValue = skin.getImgPath_AccessSym();
+        Path initialValue = this.skin.getImgPath_AccessSym();
         final ImageField imageField = new ImageField(initialValue, bg, strImgFieldTitle + "(" + strAccessSym + ")", false) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onFileChosen(File file) {
                 if (file != null) {
-                    skin.setImgPath_AccessSym(file.toPath());
-                    updatePathField(skin.getImgPath_AccessSym(), false);
+                    ButtonChangesMenu.this.skin.setImgPath_AccessSym(file.toPath());
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_AccessSym(), false);
                 } else {
-                    skin.setImgPath_AccessSym(null);
-                    updatePathField(skin.getImgPath_AccessSym(), true);
+                    ButtonChangesMenu.this.skin.setImgPath_AccessSym(null);
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_AccessSym(), true);
                 }
             }
         };
 
         // size
-        int[] size = new int[] { skin.getAccButtonWidth(), skin.getAccButtonHeight() };
+        int[] size = new int[] { this.skin.getAccButtonWidth(), this.skin.getAccButtonHeight() };
         final SizeField sizeField = new SizeField(size, 3, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setAccButtonWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setAccButtonWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setAccButtonHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setAccButtonHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setAccButtonWidth(FAILURE);
-                skin.setAccButtonHeight(FAILURE);
-                update(skin.getAccButtonWidth(), skin.getAccButtonHeight());
+                ButtonChangesMenu.this.skin.setAccButtonWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setAccButtonHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getAccButtonWidth(), ButtonChangesMenu.this.skin.getAccButtonHeight());
             }
         };
 
         // position
-        Position pos = skin.getAccButtonPosition();
+        Position pos = this.skin.getAccButtonPosition();
         boolean[] active = { false, false, false, true, false, true, false, false, false };
         final PositionField positionField = new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -242,12 +259,12 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void centerrightOnPressed() {
-                skin.setAccButtonPosition(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setAccButtonPosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setAccButtonPosition(Position.LEFT);
+                ButtonChangesMenu.this.skin.setAccButtonPosition(Position.LEFT);
             }
 
             @Override
@@ -268,16 +285,16 @@ public final class ButtonChangesMenu extends ChangesMenus {
         };
 
         // checkbox
-        boolean posNone = skin.getAccButtonPosition() == Position.NONE;
-        ButtonChangesMenu.accBtn.add(new CheckField(posNone, bg, strHideFieldTitle, strHide) {
-            private static final long serialVersionUID = 1L;
+        boolean posNone = this.skin.getAccButtonPosition() == Position.NONE;
+        this.accBtn.add(new CheckField(posNone, bg, strHideFieldTitle, strHide) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
                 if (selected) {
-                    skin.setAccButtonPosition(Position.NONE);
+                    ButtonChangesMenu.this.skin.setAccButtonPosition(Position.NONE);
                 } else {
-                    skin.setAccButtonPosition(null);
+                    ButtonChangesMenu.this.skin.setAccButtonPosition(null);
                 }
 
                 imageField.setVisible(!selected);
@@ -292,67 +309,67 @@ public final class ButtonChangesMenu extends ChangesMenus {
             positionField.setVisible(false);
         }
 
-        ButtonChangesMenu.accBtn.add(imageField);
-        ButtonChangesMenu.accBtn.add(sizeField);
-        ButtonChangesMenu.accBtn.add(positionField);
+        this.accBtn.add(imageField);
+        this.accBtn.add(sizeField);
+        this.accBtn.add(positionField);
     }
 
     /*
      * 
      */
-    private static void initComBtn(Color bg) {
-        ButtonChangesMenu.comBtn = new JPanel();
-        ButtonChangesMenu.comBtn.setBackground(bg);
-        ButtonChangesMenu.comBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initComBtn(Color bg) {
+        this.comBtn = new JPanel();
+        this.comBtn.setBackground(bg);
+        this.comBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         {
-            Path initialValue = skin.getImgPath_CommandBtn(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_CommandBtn(Imagetype.DEFAULT);
             ImageField defaultImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtn(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_CommandBtn(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS);
             ImageField focusImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtn(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_CommandBtn(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(file.toPath(), Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_CommandBtn(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_CommandBtn(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(null, Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(null, Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_CommandBtn(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_CommandBtn(Imagetype.PRESSED);
             ImageField pressedImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtn(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_CommandBtn(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_CommandBtn(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtn(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtn(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -362,57 +379,57 @@ public final class ButtonChangesMenu extends ChangesMenus {
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImagePressed);
 
-            ButtonChangesMenu.comBtn.add(pane);
+            this.comBtn.add(pane);
         }
 
         // image
         {
-            Path initialValue = skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT);
             JPanel symDefault = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_CommandBtnArrow(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS);
             JPanel symFocus = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_CommandBtnArrow(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_CommandBtnArrow(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(null, Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(null, Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED);
             JPanel symPressed = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_CommandBtnArrow(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_CommandBtnArrow(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_CommandBtnArrow(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -422,13 +439,13 @@ public final class ButtonChangesMenu extends ChangesMenus {
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImagePressed);
 
-            ButtonChangesMenu.comBtn.add(pane);
+            this.comBtn.add(pane);
         }
 
         // border
-        final int[] borderthickness = skin.getCommandButtonBorderthickness();
-        ButtonChangesMenu.comBtn.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] borderthickness = this.skin.getCommandButtonBorderthickness();
+        this.comBtn.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -463,52 +480,52 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setCommandButtonBorderthickness(null);
+                    ButtonChangesMenu.this.skin.setCommandButtonBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setCommandButtonBorderthickness(this.tmp);
+                    ButtonChangesMenu.this.skin.setCommandButtonBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setCommandButtonBorderthickness(null);
-                this.tmp = skin.getCommandButtonBorderthickness();
+                ButtonChangesMenu.this.skin.setCommandButtonBorderthickness(null);
+                this.tmp = ButtonChangesMenu.this.skin.getCommandButtonBorderthickness();
                 return this.tmp;
             }
         });
 
         // size
-        int[] size = new int[] { skin.getCommandButtonWidth(), skin.getCommandButtonHeight() };
-        ButtonChangesMenu.comBtn.add(new SizeField(size, 3, bg, strSizeFieldTitle + "(" + strMinSize + ")", true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getCommandButtonWidth(), this.skin.getCommandButtonHeight() };
+        this.comBtn.add(new SizeField(size, 3, bg, strSizeFieldTitle + "(" + strMinSize + ")", true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setCommandButtonMinWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setCommandButtonMinWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setCommandButtonMinHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setCommandButtonMinHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setCommandButtonMinWidth(FAILURE);
-                skin.setCommandButtonMinHeight(FAILURE);
-                update(skin.getCommandButtonWidth(), skin.getCommandButtonHeight());
+                ButtonChangesMenu.this.skin.setCommandButtonMinWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setCommandButtonMinHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getCommandButtonWidth(), ButtonChangesMenu.this.skin.getCommandButtonHeight());
             }
         });
 
         // margin
-        final int[] margin = skin.getCommandButtonMargin();
-        ButtonChangesMenu.comBtn.add(new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] margin = this.skin.getCommandButtonMargin();
+        this.comBtn.add(new MarginField(margin, bg, strMarginFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -543,25 +560,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setCommandButtonMargin(null);
+                    ButtonChangesMenu.this.skin.setCommandButtonMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setCommandButtonMargin(this.tmp);
+                    ButtonChangesMenu.this.skin.setCommandButtonMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setCommandButtonMargin(null);
-                this.tmp = skin.getCommandButtonMargin();
+                ButtonChangesMenu.this.skin.setCommandButtonMargin(null);
+                this.tmp = ButtonChangesMenu.this.skin.getCommandButtonMargin();
                 return this.tmp;
             }
         });
 
         // padding
-        final int[] padding = skin.getCommandButtonPadding();
-        ButtonChangesMenu.comBtn.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] padding = this.skin.getCommandButtonPadding();
+        this.comBtn.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -594,29 +611,29 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setCommandButtonPadding(null);
+                    ButtonChangesMenu.this.skin.setCommandButtonPadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setCommandButtonPadding(this.tmp);
+                    ButtonChangesMenu.this.skin.setCommandButtonPadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setCommandButtonPadding(null);
-                this.tmp = skin.getCommandButtonPadding();
+                ButtonChangesMenu.this.skin.setCommandButtonPadding(null);
+                this.tmp = ButtonChangesMenu.this.skin.getCommandButtonPadding();
                 return this.tmp;
             }
         });
 
         // checkbox
-        boolean b = skin.getCommandButtonArrowpositionIsRight();
-        ButtonChangesMenu.comBtn.add(new CheckField(b, bg, strComSymbolRightTitle, strComSymRight) {
-            private static final long serialVersionUID = 1L;
+        boolean b = this.skin.getCommandButtonArrowpositionIsRight();
+        this.comBtn.add(new CheckField(b, bg, strComSymbolRightTitle, strComSymRight) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setCommandButtonArrowpositionOnRight(selected);
+                ButtonChangesMenu.this.skin.setCommandButtonArrowpositionOnRight(selected);
             }
         });
     }
@@ -624,61 +641,61 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * blue generic btn, used as background for symbols and text, like cancel, locale and the misc options btn.
      */
-    private static void initStdBtn(Color bg) {
-        ButtonChangesMenu.stdBtn = new JPanel();
-        ButtonChangesMenu.stdBtn.setBackground(bg);
-        ButtonChangesMenu.stdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initStdBtn(Color bg) {
+        this.stdBtn = new JPanel();
+        this.stdBtn.setBackground(bg);
+        this.stdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         {
-            Path initialValue = skin.getImgPath_StandardBtn(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_StandardBtn(Imagetype.DEFAULT);
             JPanel defaultImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_StandardBtn(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_StandardBtn(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS);
             JPanel focusImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_StandardBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_StandardBtn(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_StandardBtn(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(file.toPath(), Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_StandardBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_StandardBtn(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_StandardBtn(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(null, Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(null, Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_StandardBtn(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_StandardBtn(Imagetype.PRESSED);
             JPanel pressedImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_StandardBtn(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_StandardBtn(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_StandardBtn(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_StandardBtn(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_StandardBtn(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -688,13 +705,13 @@ public final class ButtonChangesMenu extends ChangesMenus {
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImagePressed);
 
-            ButtonChangesMenu.stdBtn.add(pane);
+            this.stdBtn.add(pane);
         }
 
         // border
-        final int[] borderthickness = skin.getStandardButtonBorderthickness();
-        ButtonChangesMenu.stdBtn.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] borderthickness = this.skin.getStandardButtonBorderthickness();
+        this.stdBtn.add(new BorderField(borderthickness, bg, strBorderFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -729,52 +746,52 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setStandardButtonBorderthickness(null);
+                    ButtonChangesMenu.this.skin.setStandardButtonBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setStandardButtonBorderthickness(this.tmp);
+                    ButtonChangesMenu.this.skin.setStandardButtonBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setStandardButtonBorderthickness(null);
-                this.tmp = skin.getStandardButtonBorderthickness();
+                ButtonChangesMenu.this.skin.setStandardButtonBorderthickness(null);
+                this.tmp = ButtonChangesMenu.this.skin.getStandardButtonBorderthickness();
                 return this.tmp;
             }
         });
 
         // size
-        int[] size = new int[] { skin.getStandardButtonWidth(), skin.getStandardButtonHeight() };
-        ButtonChangesMenu.stdBtn.add(new SizeField(size, 3, bg, strSizeFieldTitle + "(" + strMinSize + ")", true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getStandardButtonWidth(), this.skin.getStandardButtonHeight() };
+        this.stdBtn.add(new SizeField(size, 3, bg, strSizeFieldTitle + "(" + strMinSize + ")", true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setStandardButtonMinWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setStandardButtonMinWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setStandardButtonMinHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setStandardButtonMinHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setStandardButtonMinWidth(FAILURE);
-                skin.setStandardButtonMinHeight(FAILURE);
-                update(skin.getStandardButtonWidth(), skin.getStandardButtonHeight());
+                ButtonChangesMenu.this.skin.setStandardButtonMinWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setStandardButtonMinHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getStandardButtonWidth(), ButtonChangesMenu.this.skin.getStandardButtonHeight());
             }
         });
 
         // margin
-        final int[] margin = skin.getStandardButtonMargin();
-        ButtonChangesMenu.stdBtn.add(new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] margin = this.skin.getStandardButtonMargin();
+        this.stdBtn.add(new MarginField(margin, bg, strMarginFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -809,25 +826,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setStandardButtonMargin(null);
+                    ButtonChangesMenu.this.skin.setStandardButtonMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setStandardButtonMargin(this.tmp);
+                    ButtonChangesMenu.this.skin.setStandardButtonMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setStandardButtonMargin(null);
-                this.tmp = skin.getStandardButtonMargin();
+                ButtonChangesMenu.this.skin.setStandardButtonMargin(null);
+                this.tmp = ButtonChangesMenu.this.skin.getStandardButtonMargin();
                 return this.tmp;
             }
         });
 
         // padding
-        final int[] padding = skin.getStandardButtonPadding();
-        ButtonChangesMenu.stdBtn.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] padding = this.skin.getStandardButtonPadding();
+        this.stdBtn.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -860,26 +877,26 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setStandardButtonPadding(null);
+                    ButtonChangesMenu.this.skin.setStandardButtonPadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setStandardButtonPadding(this.tmp);
+                    ButtonChangesMenu.this.skin.setStandardButtonPadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setStandardButtonPadding(null);
-                this.tmp = skin.getStandardButtonPadding();
+                ButtonChangesMenu.this.skin.setStandardButtonPadding(null);
+                this.tmp = ButtonChangesMenu.this.skin.getStandardButtonPadding();
                 return this.tmp;
             }
         });
 
         // position
-        Position pos = skin.getStandardButtonPosition();
+        Position pos = this.skin.getStandardButtonPosition();
         boolean[] active = { false, false, false, true, true, true, false, false, false };
-        ButtonChangesMenu.stdBtn.add(new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        this.stdBtn.add(new PositionField(pos, active, bg, strPosFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -895,17 +912,17 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void centerrightOnPressed() {
-                skin.setStandardButtonPosition(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setStandardButtonPosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setStandardButtonPosition(Position.LEFT);
+                ButtonChangesMenu.this.skin.setStandardButtonPosition(Position.LEFT);
             }
 
             @Override
             public void centerOnPressed() {
-                skin.setStandardButtonPosition(Position.CENTER);
+                ButtonChangesMenu.this.skin.setStandardButtonPosition(Position.CENTER);
             }
 
             @Override
@@ -925,58 +942,58 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initPwdBtn(Color bg) {
-        ButtonChangesMenu.pwdBtn = new JPanel();
-        ButtonChangesMenu.pwdBtn.setBackground(bg);
-        ButtonChangesMenu.pwdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initPwdBtn(Color bg) {
+        this.pwdBtn = new JPanel();
+        this.pwdBtn.setBackground(bg);
+        this.pwdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         final JTabbedPane imagepane;
         {
-            Path initialValue = skin.getImgPath_PWBtn(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_PWBtn(Imagetype.DEFAULT);
             JPanel defaultImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWBtn(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_PWBtn(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS);
+            initialValue = this.skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS);
             JPanel focusImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS), false);
                     } else {
-                        skin.setImgPath_PWBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.MOUSEFOCUS_KEYFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_PWBtn(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_PWBtn(Imagetype.PRESSED);
             JPanel pressedImage = new ImageField(initialValue, bg, false) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_PWBtn(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_PWBtn(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_PWBtn(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_PWBtn(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_PWBtn(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -988,36 +1005,36 @@ public final class ButtonChangesMenu extends ChangesMenus {
         }
 
         // size
-        int[] size = new int[] { skin.getPasswordButtonWidth(), skin.getPasswordButtonHeight() };
+        int[] size = new int[] { this.skin.getPasswordButtonWidth(), this.skin.getPasswordButtonHeight() };
         final SizeField sizefield = new SizeField(size, 3, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setPasswordButtonWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setPasswordButtonWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setPasswordButtonHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setPasswordButtonHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setPasswordButtonWidth(FAILURE);
-                skin.setPasswordButtonHeight(FAILURE);
-                update(skin.getPasswordButtonWidth(), skin.getPasswordButtonHeight());
+                ButtonChangesMenu.this.skin.setPasswordButtonWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setPasswordButtonHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getPasswordButtonWidth(), ButtonChangesMenu.this.skin.getPasswordButtonHeight());
             }
         };
 
         // border
-        final int[] borderthickness = skin.getPasswordButtonBorderthickness();
-        final BorderField borderfield = new BorderField(skin.getPasswordButtonBorderthickness(), bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] borderthickness = this.skin.getPasswordButtonBorderthickness();
+        final BorderField borderfield = new BorderField(this.skin.getPasswordButtonBorderthickness(), bg, strBorderFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -1052,25 +1069,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setPasswordButtonBorderthickness(null);
+                    ButtonChangesMenu.this.skin.setPasswordButtonBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setPasswordButtonBorderthickness(this.tmp);
+                    ButtonChangesMenu.this.skin.setPasswordButtonBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setPasswordButtonBorderthickness(null);
-                this.tmp = skin.getPasswordButtonBorderthickness();
+                ButtonChangesMenu.this.skin.setPasswordButtonBorderthickness(null);
+                this.tmp = ButtonChangesMenu.this.skin.getPasswordButtonBorderthickness();
                 return this.tmp;
             }
         };
 
         // margin
-        final int[] margin = skin.getPasswordButtonMargin();
+        final int[] margin = this.skin.getPasswordButtonMargin();
         final MarginField marginfield = new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -1105,31 +1122,31 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setPasswordButtonMargin(null);
+                    ButtonChangesMenu.this.skin.setPasswordButtonMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setPasswordButtonMargin(this.tmp);
+                    ButtonChangesMenu.this.skin.setPasswordButtonMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setPasswordButtonMargin(null);
-                this.tmp = skin.getPasswordButtonMargin();
+                ButtonChangesMenu.this.skin.setPasswordButtonMargin(null);
+                this.tmp = ButtonChangesMenu.this.skin.getPasswordButtonMargin();
                 return this.tmp;
             }
         };
 
         // checkbox
-        boolean hidden = (skin.getPasswordButtonWidth() == 0) || (skin.getPasswordButtonHeight() == 0);
-        ButtonChangesMenu.pwdBtn.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
-            private static final long serialVersionUID = 1L;
+        boolean hidden = (this.skin.getPasswordButtonWidth() == 0) || (this.skin.getPasswordButtonHeight() == 0);
+        this.pwdBtn.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
                 if (selected) {
-                    skin.setPasswordButtonWidth(0);
-                    skin.setPasswordButtonHeight(0);
+                    ButtonChangesMenu.this.skin.setPasswordButtonWidth(0);
+                    ButtonChangesMenu.this.skin.setPasswordButtonHeight(0);
 
                     imagepane.setVisible(false);
                     sizefield.setVisible(false);
@@ -1137,9 +1154,10 @@ public final class ButtonChangesMenu extends ChangesMenus {
                     marginfield.setVisible(false);
 
                 } else {
-                    skin.setPasswordButtonWidth(-1);
-                    skin.setPasswordButtonHeight(-1);
-                    sizefield.update(skin.getPasswordButtonWidth(), skin.getPasswordButtonHeight());
+                    ButtonChangesMenu.this.skin.setPasswordButtonWidth(-1);
+                    ButtonChangesMenu.this.skin.setPasswordButtonHeight(-1);
+                    sizefield.update(ButtonChangesMenu.this.skin.getPasswordButtonWidth(),
+                            ButtonChangesMenu.this.skin.getPasswordButtonHeight());
 
                     imagepane.setVisible(true);
                     sizefield.setVisible(true);
@@ -1156,25 +1174,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
             marginfield.setVisible(false);
         }
 
-        ButtonChangesMenu.pwdBtn.add(imagepane);
-        ButtonChangesMenu.pwdBtn.add(sizefield);
-        ButtonChangesMenu.pwdBtn.add(borderfield);
-        ButtonChangesMenu.pwdBtn.add(marginfield);
+        this.pwdBtn.add(imagepane);
+        this.pwdBtn.add(sizefield);
+        this.pwdBtn.add(borderfield);
+        this.pwdBtn.add(marginfield);
     }
 
     /*
      * 
      */
-    private static void initShutdFrame(Color bg) {
-        ButtonChangesMenu.shutdFrame = new JPanel();
-        ButtonChangesMenu.shutdFrame.setBackground(bg);
-        ButtonChangesMenu.shutdFrame.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initShutdFrame(Color bg) {
+        this.shutdFrame = new JPanel();
+        this.shutdFrame.setBackground(bg);
+        this.shutdFrame.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // position
-        Position pos = skin.getShutdownframePosition();
+        Position pos = this.skin.getShutdownframePosition();
         boolean[] active = { false, true, false, true, false, true, false, true, false };
-        ButtonChangesMenu.shutdFrame.add(new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        this.shutdFrame.add(new PositionField(pos, active, bg, strPosFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -1186,17 +1204,17 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void topOnPressed() {
-                skin.setShutdownframePosition(Position.TOP);
+                ButtonChangesMenu.this.skin.setShutdownframePosition(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setShutdownframePosition(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setShutdownframePosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setShutdownframePosition(Position.LEFT);
+                ButtonChangesMenu.this.skin.setShutdownframePosition(Position.LEFT);
             }
 
             @Override
@@ -1213,7 +1231,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void bottomOnPressed() {
-                skin.setShutdownframePosition(Position.BOTTOM);
+                ButtonChangesMenu.this.skin.setShutdownframePosition(Position.BOTTOM);
             }
         });
     }
@@ -1221,62 +1239,62 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initShutdBtn(Color bg) {
-        ButtonChangesMenu.shutdBtn = new JPanel();
-        ButtonChangesMenu.shutdBtn.setBackground(bg);
-        ButtonChangesMenu.shutdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initShutdBtn(Color bg) {
+        this.shutdBtn = new JPanel();
+        this.shutdBtn.setBackground(bg);
+        this.shutdBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         final JTabbedPane pane;
         {
-            Path initialValue = skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT);
             JPanel defaultImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_ShutdownBtn(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS);
             JPanel focusImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_ShutdownBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_ShutdownBtn(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_ShutdownBtn(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(null, Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(null, Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_ShutdownBtn(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_ShutdownBtn(Imagetype.PRESSED);
             JPanel pressedImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_ShutdownBtn(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_ShutdownBtn(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownBtn(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownBtn(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -1285,13 +1303,13 @@ public final class ButtonChangesMenu extends ChangesMenus {
             pane.setTitleAt(0, strImageDefault);
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImagePressed);
-            ButtonChangesMenu.shutdBtn.add(pane);
+            this.shutdBtn.add(pane);
         }
 
         // border
-        final int[] borderthickness = skin.getShutdownButtonBorderthickness();
+        final int[] borderthickness = this.skin.getShutdownButtonBorderthickness();
         final BorderField borderfield = new BorderField(borderthickness, bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -1326,25 +1344,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setShutdownButtonBorderthickness(null);
+                    ButtonChangesMenu.this.skin.setShutdownButtonBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setShutdownButtonBorderthickness(this.tmp);
+                    ButtonChangesMenu.this.skin.setShutdownButtonBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setShutdownButtonBorderthickness(null);
-                this.tmp = skin.getShutdownButtonBorderthickness();
+                ButtonChangesMenu.this.skin.setShutdownButtonBorderthickness(null);
+                this.tmp = ButtonChangesMenu.this.skin.getShutdownButtonBorderthickness();
                 return this.tmp;
             }
         };
 
         // margin
-        final int[] margin = skin.getShutdownButtonMargin();
+        final int[] margin = this.skin.getShutdownButtonMargin();
         final MarginField marginfield = new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -1379,26 +1397,26 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setShutdownButtonMargin(null);
+                    ButtonChangesMenu.this.skin.setShutdownButtonMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setShutdownButtonMargin(this.tmp);
+                    ButtonChangesMenu.this.skin.setShutdownButtonMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setShutdownButtonMargin(null);
-                this.tmp = skin.getShutdownButtonMargin();
+                ButtonChangesMenu.this.skin.setShutdownButtonMargin(null);
+                this.tmp = ButtonChangesMenu.this.skin.getShutdownButtonMargin();
                 return this.tmp;
             }
         };
 
         // position
-        Position pos = skin.getShutdownButtonPosition();
+        Position pos = this.skin.getShutdownButtonPosition();
         boolean[] active = { false, true, false, true, false, true, false, true, false };
         final PositionField posfield = new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -1410,17 +1428,17 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void topOnPressed() {
-                skin.setShutdownButtonPosition(Position.TOP);
+                ButtonChangesMenu.this.skin.setShutdownButtonPosition(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setShutdownButtonPosition(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setShutdownButtonPosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setShutdownButtonPosition(Position.LEFT);
+                ButtonChangesMenu.this.skin.setShutdownButtonPosition(Position.LEFT);
             }
 
             @Override
@@ -1437,85 +1455,85 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void bottomOnPressed() {
-                skin.setShutdownButtonPosition(Position.BOTTOM);
+                ButtonChangesMenu.this.skin.setShutdownButtonPosition(Position.BOTTOM);
             }
         };
 
         // size
-        int[] size = new int[] { skin.getShutdownButtonWidth(), skin.getShutdownButtonHeight() };
+        int[] size = new int[] { this.skin.getShutdownButtonWidth(), this.skin.getShutdownButtonHeight() };
         final SizeField sizefield = new SizeField(size, 3, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setShutdownButtonWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setShutdownButtonWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setShutdownButtonHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setShutdownButtonHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setShutdownButtonWidth(FAILURE);
-                skin.setShutdownButtonHeight(FAILURE);
-                update(skin.getShutdownButtonWidth(), skin.getShutdownButtonHeight());
+                ButtonChangesMenu.this.skin.setShutdownButtonWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setShutdownButtonHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getShutdownButtonWidth(), ButtonChangesMenu.this.skin.getShutdownButtonHeight());
             }
         };
 
         // image
-        Path initialValue = skin.getImgPath_ShutdownSym();
+        Path initialValue = this.skin.getImgPath_ShutdownSym();
         final ImageField sym = new ImageField(initialValue, bg, strImgFieldTitle + "(" + strShdSym + ")", false) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onFileChosen(File file) {
                 if (file != null) {
-                    skin.setImgPath_ShutdownSym(file.toPath());
-                    updatePathField(skin.getImgPath_ShutdownSym(), false);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownSym(file.toPath());
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownSym(), false);
                 } else {
-                    skin.setImgPath_ShutdownSym(null);
-                    updatePathField(skin.getImgPath_ShutdownSym(), true);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownSym(null);
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownSym(), true);
                 }
             }
         };
 
         // image
-        initialValue = skin.getImgPath_ShutdownUpdateSym();
+        initialValue = this.skin.getImgPath_ShutdownUpdateSym();
         final ImageField symUpd = new ImageField(initialValue, bg, strImgFieldTitle + "(" + strShdUpdateSym + ")", false) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onFileChosen(File file) {
                 if (file != null) {
-                    skin.setImgPath_ShutdownUpdateSym(file.toPath());
-                    updatePathField(skin.getImgPath_ShutdownUpdateSym(), false);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownUpdateSym(file.toPath());
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownUpdateSym(), false);
                 } else {
-                    skin.setImgPath_ShutdownUpdateSym(null);
-                    updatePathField(skin.getImgPath_ShutdownUpdateSym(), true);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownUpdateSym(null);
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownUpdateSym(), true);
                 }
             }
         };
 
         // Content
-        final ContentField contentfield = new ContentField(skin.getShutdownButtonContent(), bg, strContentFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final ContentField contentfield = new ContentField(this.skin.getShutdownButtonContent(), bg, strContentFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void contentUpdate(String input) {
                 if ((input == null) || input.equals("")) {
-                    skin.setShutdownButtonContent(null);
+                    ButtonChangesMenu.this.skin.setShutdownButtonContent(null);
 
                     sym.setVisible(true);
                     symUpd.setVisible(true);
 
                 } else {
-                    skin.setShutdownButtonContent(input);
+                    ButtonChangesMenu.this.skin.setShutdownButtonContent(input);
 
                     sym.setVisible(false);
                     symUpd.setVisible(false);
@@ -1524,15 +1542,15 @@ public final class ButtonChangesMenu extends ChangesMenus {
         };
 
         // checkbox
-        boolean hidden = (skin.getShutdownButtonWidth() == 0) || (skin.getShutdownButtonHeight() == 0);
-        ButtonChangesMenu.shutdBtn.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
-            private static final long serialVersionUID = 1L;
+        boolean hidden = (this.skin.getShutdownButtonWidth() == 0) || (this.skin.getShutdownButtonHeight() == 0);
+        this.shutdBtn.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
                 if (selected) {
-                    skin.setShutdownButtonWidth(0);
-                    skin.setShutdownButtonHeight(0);
+                    ButtonChangesMenu.this.skin.setShutdownButtonWidth(0);
+                    ButtonChangesMenu.this.skin.setShutdownButtonHeight(0);
 
                     pane.setVisible(false);
                     borderfield.setVisible(false);
@@ -1544,9 +1562,10 @@ public final class ButtonChangesMenu extends ChangesMenus {
                     symUpd.setVisible(false);
 
                 } else {
-                    skin.setShutdownButtonWidth(-1);
-                    skin.setShutdownButtonHeight(-1);
-                    sizefield.update(skin.getShutdownButtonWidth(), skin.getShutdownButtonHeight());
+                    ButtonChangesMenu.this.skin.setShutdownButtonWidth(-1);
+                    ButtonChangesMenu.this.skin.setShutdownButtonHeight(-1);
+                    sizefield.update(ButtonChangesMenu.this.skin.getShutdownButtonWidth(),
+                            ButtonChangesMenu.this.skin.getShutdownButtonHeight());
 
                     pane.setVisible(true);
                     borderfield.setVisible(true);
@@ -1560,14 +1579,14 @@ public final class ButtonChangesMenu extends ChangesMenus {
             }
         });
 
-        ButtonChangesMenu.shutdBtn.add(pane);
-        ButtonChangesMenu.shutdBtn.add(borderfield);
-        ButtonChangesMenu.shutdBtn.add(marginfield);
-        ButtonChangesMenu.shutdBtn.add(posfield);
-        ButtonChangesMenu.shutdBtn.add(sizefield);
-        ButtonChangesMenu.shutdBtn.add(contentfield);
-        ButtonChangesMenu.shutdBtn.add(sym);
-        ButtonChangesMenu.shutdBtn.add(symUpd);
+        this.shutdBtn.add(pane);
+        this.shutdBtn.add(borderfield);
+        this.shutdBtn.add(marginfield);
+        this.shutdBtn.add(posfield);
+        this.shutdBtn.add(sizefield);
+        this.shutdBtn.add(contentfield);
+        this.shutdBtn.add(sym);
+        this.shutdBtn.add(symUpd);
 
         if (hidden) {
             pane.setVisible(false);
@@ -1580,7 +1599,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
             symUpd.setVisible(false);
         }
 
-        if ((skin.getShutdownButtonContent() != null) && !skin.getShutdownButtonContent().equals("")) {
+        if ((this.skin.getShutdownButtonContent() != null) && !this.skin.getShutdownButtonContent().equals("")) {
             sym.setVisible(false);
             symUpd.setVisible(false);
         }
@@ -1589,62 +1608,62 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initShutdMenu(Color bg) {
-        ButtonChangesMenu.shutdMenu = new JPanel();
-        ButtonChangesMenu.shutdMenu.setBackground(bg);
-        ButtonChangesMenu.shutdMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initShutdMenu(Color bg) {
+        this.shutdMenu = new JPanel();
+        this.shutdMenu.setBackground(bg);
+        this.shutdMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         final JTabbedPane pane;
         {
-            Path initialValue = skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT);
             JPanel defaultImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_ShutdownMenu(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(null, Imagetype.DEFAULT);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS);
             JPanel focusImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_ShutdownMenu(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
-                        skin.setImgPath_ShutdownMenu(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_ShutdownMenu(null, Imagetype.KEYFOCUS);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(null, Imagetype.MOUSEFOCUS_KEYFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(null, Imagetype.MOUSEFOCUS);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(null, Imagetype.KEYFOCUS);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_ShutdownMenu(Imagetype.PRESSED);
+            initialValue = this.skin.getImgPath_ShutdownMenu(Imagetype.PRESSED);
             JPanel pressedImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.PRESSED), false);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(file.toPath(), Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.PRESSED), false);
                     } else {
-                        skin.setImgPath_ShutdownMenu(null, Imagetype.PRESSED);
-                        updatePathField(skin.getImgPath_ShutdownMenu(Imagetype.PRESSED), true);
+                        ButtonChangesMenu.this.skin.setImgPath_ShutdownMenu(null, Imagetype.PRESSED);
+                        updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownMenu(Imagetype.PRESSED), true);
                     }
                 }
             };
@@ -1656,9 +1675,9 @@ public final class ButtonChangesMenu extends ChangesMenus {
         }
 
         // border
-        final int[] borderthickness = skin.getShutdownmenuButtonBorderthickness();
+        final int[] borderthickness = this.skin.getShutdownmenuButtonBorderthickness();
         final BorderField borderfield = new BorderField(borderthickness, bg, strBorderFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (borderthickness == null) ? new int[] { 0, 0, 0, 0 } : borderthickness;
 
@@ -1693,25 +1712,25 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setShutdownmenuButtonBorderthickness(null);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonBorderthickness(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setShutdownmenuButtonBorderthickness(this.tmp);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonBorderthickness(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setShutdownmenuButtonBorderthickness(null);
-                this.tmp = skin.getShutdownmenuButtonBorderthickness();
+                ButtonChangesMenu.this.skin.setShutdownmenuButtonBorderthickness(null);
+                this.tmp = ButtonChangesMenu.this.skin.getShutdownmenuButtonBorderthickness();
                 return this.tmp;
             }
         };
 
         // margin
-        final int[] margin = skin.getShutdownmenuButtonMargin();
+        final int[] margin = this.skin.getShutdownmenuButtonMargin();
         final MarginField marginfield = new MarginField(margin, bg, strMarginFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (margin == null) ? new int[] { 0, 0, 0, 0 } : margin;
 
@@ -1744,76 +1763,76 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setShutdownmenuButtonMargin(null);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonMargin(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setShutdownmenuButtonMargin(this.tmp);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonMargin(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setShutdownmenuButtonMargin(null);
-                this.tmp = skin.getShutdownmenuButtonMargin();
+                ButtonChangesMenu.this.skin.setShutdownmenuButtonMargin(null);
+                this.tmp = ButtonChangesMenu.this.skin.getShutdownmenuButtonMargin();
                 return this.tmp;
             }
         };
 
         // size
-        int[] size = new int[] { skin.getShutdownmenuButtonWidth(), skin.getShutdownmenuButtonHeight() };
+        int[] size = new int[] { this.skin.getShutdownmenuButtonWidth(), this.skin.getShutdownmenuButtonHeight() };
         final SizeField sizefield = new SizeField(size, 3, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setShutdownmenuButtonWidth(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setShutdownmenuButtonWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setShutdownmenuButtonHeight(parseInt(input))) {
+                if (!ButtonChangesMenu.this.skin.setShutdownmenuButtonHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setShutdownmenuButtonWidth(FAILURE);
-                skin.setShutdownmenuButtonHeight(FAILURE);
-                update(skin.getShutdownmenuButtonWidth(), skin.getShutdownmenuButtonHeight());
+                ButtonChangesMenu.this.skin.setShutdownmenuButtonWidth(FAILURE);
+                ButtonChangesMenu.this.skin.setShutdownmenuButtonHeight(FAILURE);
+                update(ButtonChangesMenu.this.skin.getShutdownmenuButtonWidth(), ButtonChangesMenu.this.skin.getShutdownmenuButtonHeight());
             }
         };
 
         // image
-        Path initialValue = skin.getImgPath_ShutdownArrowSym();
+        Path initialValue = this.skin.getImgPath_ShutdownArrowSym();
         final ImageField sym = new ImageField(initialValue, bg, strImgFieldTitle + "(" + strShdArrowSym + ")", false) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onFileChosen(File file) {
                 if (file != null) {
-                    skin.setImgPath_ShutdownArrowSym(file.toPath());
-                    updatePathField(skin.getImgPath_ShutdownArrowSym(), false);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownArrowSym(file.toPath());
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownArrowSym(), false);
                 } else {
-                    skin.setImgPath_ShutdownArrowSym(null);
-                    updatePathField(skin.getImgPath_ShutdownArrowSym(), true);
+                    ButtonChangesMenu.this.skin.setImgPath_ShutdownArrowSym(null);
+                    updatePathField(ButtonChangesMenu.this.skin.getImgPath_ShutdownArrowSym(), true);
                 }
             }
         };
 
-        final ContentField contentfield = new ContentField(skin.getShutdownmenuButtonContent(), bg, strContentFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final ContentField contentfield = new ContentField(this.skin.getShutdownmenuButtonContent(), bg, strContentFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void contentUpdate(String input) {
                 if ((input == null) || input.equals("")) {
-                    skin.setShutdownmenuButtonContent(null);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonContent(null);
 
                     sym.setVisible(true);
                 } else {
-                    skin.setShutdownmenuButtonContent(input);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonContent(input);
 
                     sym.setVisible(false);
                 }
@@ -1821,15 +1840,15 @@ public final class ButtonChangesMenu extends ChangesMenus {
         };
 
         // checkbox
-        boolean hidden = (skin.getShutdownmenuButtonWidth() == 0) || (skin.getShutdownmenuButtonHeight() == 0);
-        ButtonChangesMenu.shutdMenu.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
-            private static final long serialVersionUID = 1L;
+        boolean hidden = (this.skin.getShutdownmenuButtonWidth() == 0) || (this.skin.getShutdownmenuButtonHeight() == 0);
+        this.shutdMenu.add(new CheckField(hidden, bg, strHideFieldTitle, strHide) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
                 if (selected) {
-                    skin.setShutdownmenuButtonWidth(0);
-                    skin.setShutdownmenuButtonHeight(0);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonWidth(0);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonHeight(0);
 
                     pane.setVisible(false);
                     borderfield.setVisible(false);
@@ -1839,9 +1858,10 @@ public final class ButtonChangesMenu extends ChangesMenus {
                     sym.setVisible(false);
 
                 } else {
-                    skin.setShutdownmenuButtonWidth(-1);
-                    skin.setShutdownmenuButtonHeight(-1);
-                    sizefield.update(skin.getShutdownmenuButtonWidth(), skin.getShutdownmenuButtonHeight());
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonWidth(-1);
+                    ButtonChangesMenu.this.skin.setShutdownmenuButtonHeight(-1);
+                    sizefield.update(ButtonChangesMenu.this.skin.getShutdownmenuButtonWidth(),
+                            ButtonChangesMenu.this.skin.getShutdownmenuButtonHeight());
 
                     pane.setVisible(true);
                     borderfield.setVisible(true);
@@ -1853,12 +1873,12 @@ public final class ButtonChangesMenu extends ChangesMenus {
             }
         });
 
-        ButtonChangesMenu.shutdMenu.add(pane);
-        ButtonChangesMenu.shutdMenu.add(borderfield);
-        ButtonChangesMenu.shutdMenu.add(marginfield);
-        ButtonChangesMenu.shutdMenu.add(sizefield);
-        ButtonChangesMenu.shutdMenu.add(contentfield);
-        ButtonChangesMenu.shutdMenu.add(sym);
+        this.shutdMenu.add(pane);
+        this.shutdMenu.add(borderfield);
+        this.shutdMenu.add(marginfield);
+        this.shutdMenu.add(sizefield);
+        this.shutdMenu.add(contentfield);
+        this.shutdMenu.add(sym);
 
         if (hidden) {
             pane.setVisible(false);
@@ -1869,7 +1889,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
             sym.setVisible(false);
         }
 
-        if ((skin.getShutdownmenuButtonContent() != null) && !skin.getShutdownmenuButtonContent().equals("")) {
+        if ((this.skin.getShutdownmenuButtonContent() != null) && !this.skin.getShutdownmenuButtonContent().equals("")) {
             sym.setVisible(false);
         }
     }
@@ -1877,67 +1897,67 @@ public final class ButtonChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initlocaleBtn(Color bg) {
-        ButtonChangesMenu.localeBtn = new JPanel();
-        ButtonChangesMenu.localeBtn.setBackground(bg);
-        ButtonChangesMenu.localeBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initlocaleBtn(Color bg) {
+        this.localeBtn = new JPanel();
+        this.localeBtn.setBackground(bg);
+        this.localeBtn.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // position
-        Position pos = skin.getLocaleButtonPosition();
+        Position pos = this.skin.getLocaleButtonPosition();
         boolean[] active = { true, true, true, true, true, true, true, true, true };
         final PositionField positionField = new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
-                skin.setLocaleButtonPosition(Position.TOPRIGHT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.TOPRIGHT);
             }
 
             @Override
             public void topleftOnPressed() {
-                skin.setLocaleButtonPosition(Position.TOPLEFT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.TOPLEFT);
             }
 
             @Override
             public void topOnPressed() {
-                skin.setLocaleButtonPosition(Position.TOP);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setLocaleButtonPosition(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setLocaleButtonPosition(Position.LEFT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.LEFT);
             }
 
             @Override
             public void centerOnPressed() {
-                skin.setLocaleButtonPosition(Position.CENTER);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.CENTER);
             }
 
             @Override
             public void bottomrightOnPressed() {
-                skin.setLocaleButtonPosition(Position.BOTTOMRIGHT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.BOTTOMRIGHT);
             }
 
             @Override
             public void bottomleftOnPressed() {
-                skin.setLocaleButtonPosition(Position.BOTTOMLEFT);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.BOTTOMLEFT);
             }
 
             @Override
             public void bottomOnPressed() {
-                skin.setLocaleButtonPosition(Position.BOTTOM);
+                ButtonChangesMenu.this.skin.setLocaleButtonPosition(Position.BOTTOM);
             }
         };
 
         // padding
-        final int[] padding = skin.getLocaleButtonPadding();
+        final int[] padding = this.skin.getLocaleButtonPadding();
         final PaddingField paddingfield = new PaddingField(padding, bg, strPaddingFieldTitle) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -1972,29 +1992,29 @@ public final class ButtonChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setLocaleButtonPadding(null);
+                    ButtonChangesMenu.this.skin.setLocaleButtonPadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setLocaleButtonPadding(this.tmp);
+                    ButtonChangesMenu.this.skin.setLocaleButtonPadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setLocaleButtonPadding(null);
-                this.tmp = skin.getLocaleButtonPadding();
+                ButtonChangesMenu.this.skin.setLocaleButtonPadding(null);
+                this.tmp = ButtonChangesMenu.this.skin.getLocaleButtonPadding();
                 return this.tmp;
             }
         };
 
         // checkbox
-        boolean hide = !skin.getLocaleButtonVisible();
-        ButtonChangesMenu.localeBtn.add(new CheckField(hide, bg, strHideFieldTitle, strHide) {
-            private static final long serialVersionUID = 1L;
+        boolean hide = !this.skin.getLocaleButtonVisible();
+        this.localeBtn.add(new CheckField(hide, bg, strHideFieldTitle, strHide) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setLocaleButtonVisibility(!selected);
+                ButtonChangesMenu.this.skin.setLocaleButtonVisibility(!selected);
                 positionField.setVisible(!selected);
                 paddingfield.setVisible(!selected);
             }
@@ -2005,34 +2025,34 @@ public final class ButtonChangesMenu extends ChangesMenus {
             paddingfield.setVisible(false);
         }
 
-        ButtonChangesMenu.localeBtn.add(positionField);
-        ButtonChangesMenu.localeBtn.add(paddingfield);
+        this.localeBtn.add(positionField);
+        this.localeBtn.add(paddingfield);
     }
 
     /*
      * 
      */
-    private static void initMisc(Color bg) {
-        ButtonChangesMenu.misc = new JPanel();
-        ButtonChangesMenu.misc.setBackground(bg);
-        ButtonChangesMenu.misc.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initMisc(Color bg) {
+        this.misc = new JPanel();
+        this.misc.setBackground(bg);
+        this.misc.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // checkbox
-        boolean b = skin.getCombinedShdAcc();
-        ButtonChangesMenu.misc.add(new CheckField(b, bg, strCombineAccShdTitle, strCombineAccShdLabel) {
-            private static final long serialVersionUID = 1L;
+        boolean b = this.skin.getCombinedShdAcc();
+        this.misc.add(new CheckField(b, bg, strCombineAccShdTitle, strCombineAccShdLabel) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setCombinedShdAcc(selected);
+                ButtonChangesMenu.this.skin.setCombinedShdAcc(selected);
             }
         });
 
         // position
-        Position pos = skin.getCombinedShdAccPosition();
+        Position pos = this.skin.getCombinedShdAccPosition();
         boolean[] active = { false, true, false, true, false, true, false, true, false };
-        ButtonChangesMenu.misc.add(new PositionField(pos, active, bg, strCombinedAccShdPosTitle) {
-            private static final long serialVersionUID = 1L;
+        this.misc.add(new PositionField(pos, active, bg, strCombinedAccShdPosTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
@@ -2044,17 +2064,17 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void topOnPressed() {
-                skin.setCombinedShdAcc_Position(Position.TOP);
+                ButtonChangesMenu.this.skin.setCombinedShdAcc_Position(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setCombinedShdAcc_Position(Position.RIGHT);
+                ButtonChangesMenu.this.skin.setCombinedShdAcc_Position(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setCombinedShdAcc_Position(Position.LEFT);
+                ButtonChangesMenu.this.skin.setCombinedShdAcc_Position(Position.LEFT);
             }
 
             @Override
@@ -2071,7 +2091,7 @@ public final class ButtonChangesMenu extends ChangesMenus {
 
             @Override
             public void bottomOnPressed() {
-                skin.setCombinedShdAcc_Position(Position.BOTTOM);
+                ButtonChangesMenu.this.skin.setCombinedShdAcc_Position(Position.BOTTOM);
             }
         });
     }

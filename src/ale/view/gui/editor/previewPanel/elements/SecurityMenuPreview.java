@@ -19,7 +19,7 @@ import ale.Constants;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinPropertiesVO;
 
-public class SecurityMenu extends PreviewElement {
+public class SecurityMenuPreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
@@ -27,7 +27,7 @@ public class SecurityMenu extends PreviewElement {
     private BufferedImage ground;
     private BufferedImage symbol;
 
-    public SecurityMenu(SkinPropertiesVO skin, JPanel parent) {
+    public SecurityMenuPreview(SkinPropertiesVO skin, JPanel parent) {
         if (skin == null) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
@@ -35,6 +35,13 @@ public class SecurityMenu extends PreviewElement {
 
         this.skin = skin;
         this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.parent = null;
+        this.ground = null;
+        this.symbol = null;
     }
 
     @Override
@@ -55,6 +62,7 @@ public class SecurityMenu extends PreviewElement {
                         .replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
                 this.symbol = ImageIO.read(new File(p));
             } catch (IOException e) {
+                ;
             }
         }
 

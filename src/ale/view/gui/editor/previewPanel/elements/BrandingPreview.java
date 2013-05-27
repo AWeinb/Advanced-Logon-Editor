@@ -20,14 +20,14 @@ import ale.model.skin.BrandingVO.Brandingsize;
 import ale.model.skin.SkinConstants.Position;
 import ale.model.skin.SkinPropertiesVO;
 
-public class Branding extends PreviewElement {
+public class BrandingPreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
     private JPanel parent;
     private BufferedImage branding;
 
-    public Branding(SkinPropertiesVO skin, JPanel parent) {
+    public BrandingPreview(SkinPropertiesVO skin, JPanel parent) {
         if (skin == null) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
@@ -35,6 +35,12 @@ public class Branding extends PreviewElement {
 
         this.skin = skin;
         this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.parent = null;
+        this.branding = null;
     }
 
     @Override
@@ -52,6 +58,7 @@ public class Branding extends PreviewElement {
                             .replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
                     this.branding = ImageIO.read(new File(p));
                 } catch (IOException e) {
+                    ;
                 }
             }
 

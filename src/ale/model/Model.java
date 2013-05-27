@@ -261,6 +261,7 @@ public final class Model implements IModel {
         if (FileUtil.control(skinPath)) {
             tmp = loadSkin(skinPath);
             ret = applySkin(tmp);
+            tmp.shutdown();
             createTemporaryData(); // Dont delete temp. There may be a skin opened.
 
         } else {

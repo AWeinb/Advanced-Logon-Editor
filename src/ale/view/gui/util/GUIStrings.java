@@ -8,8 +8,6 @@ package ale.view.gui.util;
 
 import java.util.ResourceBundle;
 
-import ale.controller.Main;
-
 /**
  * ------------------------------------------------- <br/>
  * Package: ale.view.gui <br/>
@@ -64,7 +62,6 @@ public final class GUIStrings {
             ret = locale.getString(key);
 
         } catch (Exception e) {
-            Main.showProblemMessage("The locale resourceBundle is corrupted!");
             ret = key;
         }
 

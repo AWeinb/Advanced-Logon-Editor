@@ -11,8 +11,8 @@
   <supportUrl></supportUrl>
   <customProcName>true</customProcName>
   <stayAlive>false</stayAlive>
-  <manifest>E:\Daten\1 Workspace Java\Advanced Logon Editor\generated-program\ale.manifest</manifest>
-  <icon>E:\Daten\1 Workspace Java\Advanced Logon Editor\generated-program\icon.ico</icon>
+  <manifest>E:\Daten\1 Workspace Java\Advanced-Logon-Editor\generated-program\ale.manifest</manifest>
+  <icon>E:\Daten\1 Workspace Java\Advanced-Logon-Editor\generated-program\icon.ico</icon>
   <jre>
     <path></path>
     <minVersion>1.7.0</minVersion>

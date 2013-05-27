@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import ale.controller.Main;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinConstants.Position;
+import ale.model.skin.SkinPropertiesVO;
 import ale.view.gui.editor.fields.CheckField;
 import ale.view.gui.editor.fields.ImageField;
 import ale.view.gui.editor.fields.Numberfield;
@@ -26,16 +27,20 @@ import ale.view.gui.util.VerticalLayout;
 
 public final class UserlistChangesMenu extends ChangesMenus {
 
-    private static boolean init_1;
+    private boolean init_1;
 
-    private static JPanel userlistImageMenu;
-    private static JPanel userlistImageframeMenu;
-    private static JPanel userlistLayoutMenu;
+    private JPanel userlistImageMenu;
+    private JPanel userlistImageframeMenu;
+    private JPanel userlistLayoutMenu;
 
-    private UserlistChangesMenu() {
+    private SkinPropertiesVO skin;
+
+    public UserlistChangesMenu(Color bg, SkinPropertiesVO skin) {
+        this.skin = skin;
+        initialize(bg);
     }
 
-    public static void initialize(final Color bg) {
+    private void initialize(final Color bg) {
         Runnable _runOne = new Runnable() {
 
             @Override
@@ -43,83 +48,89 @@ public final class UserlistChangesMenu extends ChangesMenus {
                 initUserlistImageMenu(bg);
                 initUserlistImageframeMenu(bg);
                 initUserlistLayoutMenu(bg);
-                init_1 = true;
+                UserlistChangesMenu.this.init_1 = true;
             }
         };
         Main.executeThreads(_runOne);
     }
 
-    protected static boolean isInitialized() {
-        return init_1;
+    public boolean isInitialized() {
+        return this.init_1;
     }
 
-    public static JPanel getUserlistImageMenu() {
-        if (!UserlistChangesMenu.init_1) {
+    public void shutdown() {
+        this.userlistImageMenu = null;
+        this.userlistImageframeMenu = null;
+        this.userlistLayoutMenu = null;
+    }
+
+    public JPanel getUserlistImageMenu() {
+        if (!this.init_1) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UserlistChangesMenu.userlistImageMenu;
+        return this.userlistImageMenu;
     }
 
-    public static JPanel getUserlistImageframeMenu() {
-        if (!UserlistChangesMenu.init_1) {
+    public JPanel getUserlistImageframeMenu() {
+        if (!this.init_1) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UserlistChangesMenu.userlistImageframeMenu;
+        return this.userlistImageframeMenu;
     }
 
-    public static JPanel getUserlistLayoutMenu() {
-        if (!UserlistChangesMenu.init_1) {
+    public JPanel getUserlistLayoutMenu() {
+        if (!this.init_1) {
             IllegalStateException e = new IllegalStateException("Call init first!");
             throw e;
         }
 
-        return UserlistChangesMenu.userlistLayoutMenu;
+        return this.userlistLayoutMenu;
     }
 
     /*
      * ########################################################################## ##
      */
 
-    private static void initUserlistImageMenu(Color bg) {
-        UserlistChangesMenu.userlistImageMenu = new JPanel();
-        UserlistChangesMenu.userlistImageMenu.setBackground(bg);
-        UserlistChangesMenu.userlistImageMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUserlistImageMenu(Color bg) {
+        this.userlistImageMenu = new JPanel();
+        this.userlistImageMenu.setBackground(bg);
+        this.userlistImageMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // size
-        int[] size = new int[] { skin.getUserlistImageWidth(), skin.getUserlistImageHeight() };
-        UserlistChangesMenu.userlistImageMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getUserlistImageWidth(), this.skin.getUserlistImageHeight() };
+        this.userlistImageMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setUserlistImageWidth(parseInt(input))) {
+                if (!UserlistChangesMenu.this.skin.setUserlistImageWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setUserlistImageHeight(parseInt(input))) {
+                if (!UserlistChangesMenu.this.skin.setUserlistImageHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setUserlistImageWidth(-1);
-                skin.setUserlistImageHeight(-1);
-                update(skin.getUserlistImageWidth(), skin.getUserlistImageHeight());
+                UserlistChangesMenu.this.skin.setUserlistImageWidth(-1);
+                UserlistChangesMenu.this.skin.setUserlistImageHeight(-1);
+                update(UserlistChangesMenu.this.skin.getUserlistImageWidth(), UserlistChangesMenu.this.skin.getUserlistImageHeight());
             }
         });
 
         // padding
-        final int[] padding = skin.getUserlistImagePadding();
-        UserlistChangesMenu.userlistImageMenu.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        final int[] padding = this.skin.getUserlistImagePadding();
+        this.userlistImageMenu.add(new PaddingField(padding, bg, strPaddingFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -154,75 +165,75 @@ public final class UserlistChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setUserlistImagePadding(null);
+                    UserlistChangesMenu.this.skin.setUserlistImagePadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setUserlistImagePadding(this.tmp);
+                    UserlistChangesMenu.this.skin.setUserlistImagePadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setUserlistImagePadding(null);
-                this.tmp = skin.getUserlistImagePadding();
+                UserlistChangesMenu.this.skin.setUserlistImagePadding(null);
+                this.tmp = UserlistChangesMenu.this.skin.getUserlistImagePadding();
                 return this.tmp;
             }
         });
     }
 
-    private static void initUserlistImageframeMenu(Color bg) {
-        UserlistChangesMenu.userlistImageframeMenu = new JPanel();
-        UserlistChangesMenu.userlistImageframeMenu.setBackground(bg);
-        UserlistChangesMenu.userlistImageframeMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUserlistImageframeMenu(Color bg) {
+        this.userlistImageframeMenu = new JPanel();
+        this.userlistImageframeMenu.setBackground(bg);
+        this.userlistImageframeMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // image
         {
-            Path initialValue = skin.getImgPath_UserlistImage(Imagetype.DEFAULT);
+            Path initialValue = this.skin.getImgPath_UserlistImage(Imagetype.DEFAULT);
             ImageField defaultImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_UserlistImage(file.toPath(), Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.DEFAULT), false);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(file.toPath(), Imagetype.DEFAULT);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.DEFAULT), false);
                     } else {
-                        skin.setImgPath_UserlistImage(null, Imagetype.DEFAULT);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.DEFAULT), true);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(null, Imagetype.DEFAULT);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.DEFAULT), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS);
+            initialValue = this.skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS);
             ImageField focusImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_UserlistImage(file.toPath(), Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_UserlistImage(file.toPath(), Imagetype.FOCUSSELECTED);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS), false);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(file.toPath(), Imagetype.MOUSEFOCUS);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(file.toPath(), Imagetype.FOCUSSELECTED);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS), false);
                     } else {
-                        skin.setImgPath_UserlistImage(null, Imagetype.MOUSEFOCUS);
-                        skin.setImgPath_UserlistImage(null, Imagetype.FOCUSSELECTED);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS), true);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(null, Imagetype.MOUSEFOCUS);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(null, Imagetype.FOCUSSELECTED);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.MOUSEFOCUS), true);
                     }
                 }
             };
 
-            initialValue = skin.getImgPath_UserlistImage(Imagetype.SELECTED);
+            initialValue = this.skin.getImgPath_UserlistImage(Imagetype.SELECTED);
             ImageField pressedImage = new ImageField(initialValue, bg, true) {
-                private static final long serialVersionUID = 1L;
+                private final long serialVersionUID = 1L;
 
                 @Override
                 public void onFileChosen(File file) {
                     if (file != null) {
-                        skin.setImgPath_UserlistImage(file.toPath(), Imagetype.SELECTED);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.SELECTED), false);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(file.toPath(), Imagetype.SELECTED);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.SELECTED), false);
                     } else {
-                        skin.setImgPath_UserlistImage(null, Imagetype.SELECTED);
-                        updatePathField(skin.getImgPath_UserlistImage(Imagetype.SELECTED), true);
+                        UserlistChangesMenu.this.skin.setImgPath_UserlistImage(null, Imagetype.SELECTED);
+                        updatePathField(UserlistChangesMenu.this.skin.getImgPath_UserlistImage(Imagetype.SELECTED), true);
                     }
                 }
             };
@@ -233,33 +244,34 @@ public final class UserlistChangesMenu extends ChangesMenus {
             pane.setTitleAt(1, strImageFocus);
             pane.setTitleAt(2, strImageSelected);
 
-            UserlistChangesMenu.userlistImageframeMenu.add(pane);
+            this.userlistImageframeMenu.add(pane);
         }
 
         // size
-        int[] size = new int[] { skin.getUserlistImageFrameWidth(), skin.getUserlistImageFrameHeight() };
-        UserlistChangesMenu.userlistImageframeMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
-            private static final long serialVersionUID = 1L;
+        int[] size = new int[] { this.skin.getUserlistImageFrameWidth(), this.skin.getUserlistImageFrameHeight() };
+        this.userlistImageframeMenu.add(new SizeField(size, 4, bg, strSizeFieldTitle, true) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void widthOnKeyReleased(String input) {
-                if (!skin.setUserlistImageFrameWidth(parseInt(input))) {
+                if (!UserlistChangesMenu.this.skin.setUserlistImageFrameWidth(parseInt(input))) {
                     updateWidthfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void heightOnKeyReleased(String input) {
-                if (!skin.setUserlistImageFrameHeight(parseInt(input))) {
+                if (!UserlistChangesMenu.this.skin.setUserlistImageFrameHeight(parseInt(input))) {
                     updateHeightfieldColor(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setUserlistImageFrameWidth(-1);
-                skin.setUserlistImageFrameHeight(-1);
-                update(skin.getUserlistImageFrameWidth(), skin.getUserlistImageFrameHeight());
+                UserlistChangesMenu.this.skin.setUserlistImageFrameWidth(-1);
+                UserlistChangesMenu.this.skin.setUserlistImageFrameHeight(-1);
+                update(UserlistChangesMenu.this.skin.getUserlistImageFrameWidth(),
+                        UserlistChangesMenu.this.skin.getUserlistImageFrameHeight());
             }
         });
     }
@@ -267,98 +279,97 @@ public final class UserlistChangesMenu extends ChangesMenus {
     /*
      * 
      */
-    private static void initUserlistLayoutMenu(Color bg) {
-        UserlistChangesMenu.userlistLayoutMenu = new JPanel();
-        UserlistChangesMenu.userlistLayoutMenu.setBackground(bg);
-        UserlistChangesMenu.userlistLayoutMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
+    private void initUserlistLayoutMenu(Color bg) {
+        this.userlistLayoutMenu = new JPanel();
+        this.userlistLayoutMenu.setBackground(bg);
+        this.userlistLayoutMenu.setLayout(new VerticalLayout(5, VerticalLayout.LEFT));
 
         // size
-        UserlistChangesMenu.userlistLayoutMenu.add(new Numberfield(skin.getUserlistHeight(), 3, bg, strSizeFieldTitle, strNumfieldHeight,
+        this.userlistLayoutMenu.add(new Numberfield(this.skin.getUserlistHeight(), 3, bg, strSizeFieldTitle, strNumfieldHeight,
                 true) {
-            private static final long serialVersionUID = 1L;
+            private final long serialVersionUID = 1L;
 
             @Override
             public void onKeyReleased(String input) {
-                if (!skin.setUserlistHeight(parseInt(input))) {
+                if (!UserlistChangesMenu.this.skin.setUserlistHeight(parseInt(input))) {
                     update(Color.RED);
                 }
             }
 
             @Override
             public void resetOnClick() {
-                skin.setUserlistHeight(-1);
-                update(skin.getUserlistHeight());
+                UserlistChangesMenu.this.skin.setUserlistHeight(-1);
+                update(UserlistChangesMenu.this.skin.getUserlistHeight());
             }
         });
 
         // checkbox
-        boolean b = skin.getUserlistVertical();
-        UserlistChangesMenu.userlistLayoutMenu.add(new CheckField(b, bg, strUserlistVTitle, strUserlistVBtn) {
-            private static final long serialVersionUID = 1L;
+        boolean b = this.skin.getUserlistVertical();
+        this.userlistLayoutMenu.add(new CheckField(b, bg, strUserlistVTitle, strUserlistVBtn) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void btnPressed(boolean selected) {
-                skin.setUserlistVertical(selected);
+                UserlistChangesMenu.this.skin.setUserlistVertical(selected);
             }
         });
 
         // position
-        Position pos = skin.getUserlistPosition();
+        Position pos = this.skin.getUserlistPosition();
         boolean[] active = { true, true, true, true, true, true, true, true, true };
-        UserlistChangesMenu.userlistLayoutMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
-            private static final long serialVersionUID = 1L;
+        this.userlistLayoutMenu.add(new PositionField(pos, active, bg, strPosFieldTitle) {
+            private final long serialVersionUID = 1L;
 
             @Override
             public void toprightOnPressed() {
-                skin.setUserlistPosition(Position.TOPRIGHT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.TOPRIGHT);
             }
 
             @Override
             public void topleftOnPressed() {
-                skin.setUserlistPosition(Position.TOPLEFT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.TOPLEFT);
             }
 
             @Override
             public void topOnPressed() {
-                skin.setUserlistPosition(Position.TOP);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.TOP);
             }
 
             @Override
             public void centerrightOnPressed() {
-                skin.setUserlistPosition(Position.RIGHT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.RIGHT);
             }
 
             @Override
             public void centerleftOnPressed() {
-                skin.setUserlistPosition(Position.LEFT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.LEFT);
             }
 
             @Override
             public void centerOnPressed() {
-                skin.setUserlistPosition(Position.CENTER);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.CENTER);
             }
 
             @Override
             public void bottomrightOnPressed() {
-                skin.setUserlistPosition(Position.BOTTOMRIGHT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.BOTTOMRIGHT);
             }
 
             @Override
             public void bottomleftOnPressed() {
-                skin.setUserlistPosition(Position.BOTTOMLEFT);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.BOTTOMLEFT);
             }
 
             @Override
             public void bottomOnPressed() {
-                skin.setUserlistPosition(Position.BOTTOM);
+                UserlistChangesMenu.this.skin.setUserlistPosition(Position.BOTTOM);
             }
         });
 
         // padding
-        final int[] padding = skin.getUserlistPadding();
-        UserlistChangesMenu.userlistLayoutMenu
-        .add(new PaddingField(padding, bg, strPaddingFieldTitle + "(" + strUserlistPaddingHint + ")") {
-            private static final long serialVersionUID = 1L;
+        final int[] padding = this.skin.getUserlistPadding();
+        this.userlistLayoutMenu.add(new PaddingField(padding, bg, strPaddingFieldTitle + "(" + strUserlistPaddingHint + ")") {
+            private final long serialVersionUID = 1L;
 
             private int[] tmp = (padding == null) ? new int[] { 0, 0, 0, 0 } : padding;
 
@@ -393,17 +404,17 @@ public final class UserlistChangesMenu extends ChangesMenus {
                 }
 
                 if (i == FAILURE) {
-                    skin.setUserlistPadding(null);
+                    UserlistChangesMenu.this.skin.setUserlistPadding(null);
                 } else {
                     this.tmp[index] = i;
-                    skin.setUserlistPadding(this.tmp);
+                    UserlistChangesMenu.this.skin.setUserlistPadding(this.tmp);
                 }
             }
 
             @Override
             public int[] reset() {
-                skin.setUserlistPadding(null);
-                this.tmp = skin.getUserlistPadding();
+                UserlistChangesMenu.this.skin.setUserlistPadding(null);
+                this.tmp = UserlistChangesMenu.this.skin.getUserlistPadding();
                 return this.tmp;
             }
         });

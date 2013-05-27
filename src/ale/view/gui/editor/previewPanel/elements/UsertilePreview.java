@@ -19,16 +19,16 @@ import ale.Constants;
 import ale.model.skin.SkinConstants.Imagetype;
 import ale.model.skin.SkinPropertiesVO;
 
-public class Userlist extends PreviewElement {
+public class UsertilePreview extends PreviewElement {
 
     private static final long serialVersionUID = 1L;
     private SkinPropertiesVO skin;
     private JPanel parent;
     private BufferedImage border;
     private BufferedImage user;
-    private BufferedImage guest;
+    private BufferedImage pw;
 
-    public Userlist(SkinPropertiesVO skin, JPanel parent) {
+    public UsertilePreview(SkinPropertiesVO skin, JPanel parent) {
         if ((skin == null) || (parent == null)) {
             IllegalArgumentException iae = new IllegalArgumentException("Wrong parameter!");
             throw iae;
@@ -36,6 +36,14 @@ public class Userlist extends PreviewElement {
 
         this.skin = skin;
         this.parent = parent;
+    }
+
+    public void shutdown() {
+        this.skin = null;
+        this.parent = null;
+        this.border = null;
+        this.user = null;
+        this.pw = null;
     }
 
     @Override
@@ -46,36 +54,40 @@ public class Userlist extends PreviewElement {
         int w, h;
         Rectangle bounds = this.parent.getBounds();
 
-        if (this.skin.isChanged() || (this.border == null) || (this.user == null) || (this.guest == null)) {
+        if (this.skin.isChanged() || (this.border == null) || (this.user == null) || (this.pw == null)) {
             try {
-                String p = this.skin.getImgPath_UserlistImage(Imagetype.DEFAULT).toString()
+                String p = this.skin.getImgPath_UsertileImage().toString()
                         .replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
                 this.border = ImageIO.read(new File(p));
 
-                p = Constants.EDITOR_USERIMG.toString();
+                p = Constants.EDITOR_USERIMG.toString().replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
                 this.user = ImageIO.read(new File(p));
 
-                p = Constants.EDITOR_GUESTIMG.toString();
-                this.guest = ImageIO.read(new File(p));
+                p = this.skin.getImgPath_PWBtn(Imagetype.DEFAULT).toString()
+                        .replaceFirst(Constants.DEFAULT_SKINIMAGE_TYPE, Constants.DEFAULT_INPUTIMAGE_TYPE);
+                this.pw = ImageIO.read(new File(p));
             } catch (IOException e) {
             }
         }
 
-        w = this.skin.getUserlistImageFrameWidth();
-        h = this.skin.getUserlistImageFrameHeight();
+        w = this.skin.getUsertileImageFrameWidth();
+        h = this.skin.getUsertileImageFrameHeight();
 
-        int[] padding = this.skin.getUserlistImagePadding();
-
-        int spacing = 40;
-        x = (bounds.width / 2) - w - spacing;
-        y = (bounds.height / 2) + 50;
+        x = (bounds.width / 2) - (w / 2);
+        y = (bounds.height / 2) - (h / 2);
+        int[] padding = this.skin.getUsertileImagePadding();
 
         g2.drawImage(this.user, x + padding[0], y + padding[1], w - padding[0] - padding[2], h - padding[1] - padding[3], null);
         g2.drawImage(this.border, x, y, w, h, null);
 
-        x += w + (2 * spacing);
+        int spacing = 30;
+        y += w + spacing;
 
-        g2.drawImage(this.guest, x + padding[0], y + padding[1], w - padding[0] - padding[2], h - padding[1] - padding[3], null);
-        g2.drawImage(this.border, x, y, w, h, null);
+        w = this.skin.getPasswordButtonWidth();
+        h = this.skin.getPasswordButtonHeight();
+
+        x = (bounds.width / 2) - (w / 2);
+
+        g2.drawImage(this.pw, x, y, w, h, null);
     }
 }
