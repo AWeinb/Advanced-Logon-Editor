@@ -14,8 +14,8 @@ Editor-tool to create custom Win7 Logons.
 =====================
 About-Dialog Content
 =====================
-"Thanks to all who contributed to ALE!"
-"Developers:"
+"Thanks to all who contributed to ALE!" <br/>
+"Developers:" <br/>
 "A. Weinberger (ALE)"
 "Angus Johnson (Resource Hacker)"
 "Apache Software Foundation (Log4J)"
