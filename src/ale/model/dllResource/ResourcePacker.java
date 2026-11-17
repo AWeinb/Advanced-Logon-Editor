@@ -32,6 +32,7 @@ final class ResourcePacker {
 
         assert FileUtil.control(script.scriptPath());
         String cmd = CMD_ADDWITHSCRIPT + script.scriptPath(); // Runs the resource hacker with the commandline argument cmd
+        // Alternative: Resource Cracker https://www.pelock.com/products/resource-cracker
         return ProgramLauncher.start(this.reshacker.toString(), cmd, true, ERROR_IDENTIFIER);
     }
 }
